@@ -1,10 +1,11 @@
 // screens/onboarding/onboarding_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:permission_handler/permission_handler.dart';
 import '../../data/countries.dart';
 import '../../l10n/app_localizations.dart';
+import '../../providers/locale_provider.dart';
 import '../../providers/user_profile_provider.dart';
+import '../../services/notification_service.dart';
 import '../../theme/app_theme.dart';
 import '../main_shell.dart';
 
@@ -74,14 +75,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Future<void> _requestNotifications() async {
-    final status = await Permission.notification.request();
-    setState(() => _notifGranted = status.isGranted);
+    final granted = await ref.read(notificationServiceProvider).requestPermissions();
+    if (!mounted) return;
+    setState(() => _notifGranted = granted);
   }
 
   // ─── Progress indicator ─────────────────────────────────────────
   Widget _buildProgressBar() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       child: Row(
         children: List.generate(_kPageCount, (i) {
           final isActive = i <= _currentPage;
@@ -105,13 +107,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final currentLocale = ref.watch(localeProvider);
 
     return Scaffold(
       backgroundColor: AppColors.bg,
       body: SafeArea(
         child: Column(
           children: [
-            // ── Top bar with progress + skip ──────────────────────
+            // ── Top bar with progress + language/back + skip ─────
             Row(
               children: [
                 if (_currentPage > 0)
@@ -120,7 +123,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     onPressed: _goBack,
                   )
                 else
-                  const SizedBox(width: 48),
+                  PopupMenuButton<String>(
+                    icon: const Icon(Icons.language_rounded, size: 22, color: AppColors.primary),
+                    tooltip: l10n.language,
+                    onSelected: (code) {
+                      ref.read(localeProvider.notifier).changeLanguage(code);
+                    },
+                    itemBuilder: (ctx) => [
+                      PopupMenuItem(value: 'en', child: Text('${l10n.english} ${currentLocale.languageCode == 'en' ? '✓' : ''}')),
+                      PopupMenuItem(value: 'fr', child: Text('${l10n.french} ${currentLocale.languageCode == 'fr' ? '✓' : ''}')),
+                      PopupMenuItem(value: 'ar', child: Text('${l10n.arabic} ${currentLocale.languageCode == 'ar' ? '✓' : ''}')),
+                      PopupMenuItem(value: 'es', child: Text('${l10n.spanish} ${currentLocale.languageCode == 'es' ? '✓' : ''}')),
+                    ],
+                  ),
                 Expanded(child: _buildProgressBar()),
                 if (_currentPage < 3) // only on feature pages
                   TextButton(

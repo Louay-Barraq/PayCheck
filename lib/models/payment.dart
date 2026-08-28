@@ -5,19 +5,6 @@ import '../l10n/app_localizations.dart';
 enum PaymentMethod { cash, postal, card, check }
 
 extension PaymentMethodX on PaymentMethod {
-  String get label {
-    switch (this) {
-      case PaymentMethod.cash:
-        return 'Espèces';
-      case PaymentMethod.postal:
-        return 'Poste';
-      case PaymentMethod.card:
-        return 'Carte bancaire';
-      case PaymentMethod.check:
-        return 'Chèque';
-    }
-  }
-
   String localizedLabel(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     switch (this) {

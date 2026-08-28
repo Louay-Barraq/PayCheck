@@ -5,19 +5,6 @@ import '../l10n/app_localizations.dart';
 enum PaymentPeriod { monthly, quarterly, semester, annual }
 
 extension PaymentPeriodX on PaymentPeriod {
-  String get label {
-    switch (this) {
-      case PaymentPeriod.monthly:
-        return 'Mensuel';
-      case PaymentPeriod.quarterly:
-        return 'Trimestriel';
-      case PaymentPeriod.semester:
-        return 'Semestriel';
-      case PaymentPeriod.annual:
-        return 'Annuel';
-    }
-  }
-
   String localizedLabel(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     switch (this) {

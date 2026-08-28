@@ -19,10 +19,14 @@ void main() async {
     cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
   );
 
-  // Initialize date formatting for all supported locales
+  // Initialize date formatting for all supported locales (both bare tags and regional)
+  await initializeDateFormatting('en', null);
   await initializeDateFormatting('en_US', null);
+  await initializeDateFormatting('fr', null);
   await initializeDateFormatting('fr_FR', null);
+  await initializeDateFormatting('ar', null);
   await initializeDateFormatting('ar_TN', null);
+  await initializeDateFormatting('es', null);
   await initializeDateFormatting('es_ES', null);
 
   runApp(const ProviderScope(child: PayCheckApp()));

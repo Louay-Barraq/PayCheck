@@ -125,7 +125,8 @@
     <h2>1. Data Collected and Purpose</h2>
     <p>To ensure the proper functioning of the application and the synchronization of your professional data across your devices, we collect the following information:</p>
     <ul>
-      <li><strong>Account Information:</strong> Your email address, unique authentication identifier (UID), and potentially your display name provided during login via Email or Google Sign-In.</li>
+      <li><strong>Account Information:</strong> Your email address, unique authentication identifier (UID), and display name provided during login via Email or Google Sign-In.</li>
+      <li><strong>Profile & Onboarding Preferences:</strong> Profession category, age range, country of operation, and default currency choice selected during onboarding to customize the application experience and display localized monetary formatting.</li>
       <li><strong>User-Created Management Data:</strong> Information related to your clients (name, contract number, phone number, address, payment frequency) and their payments (amount, payment date, period covered, payment method, receipt status).</li>
     </ul>
 
@@ -154,13 +155,14 @@
     </p>
     <ul>
       <li>You can modify or delete each client or payment individually directly within the application.</li>
-      <li><strong>Full Account Deletion:</strong> You can at any time permanently delete your account and all associated data (clients, contracts, payment history) from the <em>Settings &gt; Delete my account</em> screen of the application. This action immediately and irreversibly erases all your data from our servers.</li>
+      <li><strong>Full Account Deletion:</strong> You can at any time permanently delete your account and all associated data (clients, contracts, payment history, and user profile) from the <em>Settings &gt; Delete my account</em> screen of the application. This action immediately and irreversibly erases all your data from our servers.</li>
     </ul>
 
     <h2>6. Required Permissions</h2>
     <ul>
       <li><code>INTERNET</code>: Necessary to communicate securely with Firebase authentication and database services.</li>
       <li><code>ACCESS_NETWORK_STATE</code>: Used to detect network connectivity and enable offline mode (local caching).</li>
+      <li><code>POST_NOTIFICATIONS</code> / <code>Notifications</code>: Requested on Android 13+ and iOS to schedule and display local alerts for upcoming and overdue payment due dates.</li>
     </ul>
 
     <h2>7. Children's Privacy</h2>

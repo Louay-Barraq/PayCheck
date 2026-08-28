@@ -4,8 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
 import '../models/client.dart';
 import '../models/payment.dart';
+import '../providers/client_providers.dart';
 import '../providers/dashboard_providers.dart';
+import '../providers/payment_providers.dart';
 import '../providers/user_profile_provider.dart';
+import '../services/notification_service.dart';
 import '../theme/app_theme.dart';
 import '../widgets/status_badge.dart';
 import 'client_detail_screen.dart';
@@ -135,7 +138,20 @@ class DashboardScreen extends ConsumerWidget {
         ],
       ),
       body: dashAsync.when(
-        data: (data) => ListView(
+        data: (data) {
+          ref.read(clientsProvider).whenData((clients) {
+            final Map<String, List<Payment>> paymentsByClient = {};
+            for (final c in clients) {
+              paymentsByClient[c.id] = ref.watch(paymentsForClientProvider(c.id)).value ?? [];
+            }
+            ref.read(notificationServiceProvider).checkAndSendPaymentAlerts(
+                  clients: clients,
+                  paymentsByClient: paymentsByClient,
+                  currencySymbol: currency,
+                );
+          });
+
+          return ListView(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
           children: [
             // Hero card: main revenue KPI with trend
@@ -315,7 +331,8 @@ class DashboardScreen extends ConsumerWidget {
                 ),
             ],
           ],
-        ),
+        );
+      },
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) {
           debugPrint('Error: $e');
