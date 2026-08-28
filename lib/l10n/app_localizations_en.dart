@@ -470,4 +470,45 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onbNotifGranted => 'Notifications enabled ✓';
+
+  @override
+  String get notifEnabledTitle => 'Notifications Enabled ✓';
+
+  @override
+  String get notifEnabledBody =>
+      'PayCheck will alert you when client payments are due or overdue.';
+
+  @override
+  String get notifOverdueTitle => '⚠️ Overdue Payment Alert';
+
+  @override
+  String notifOverdueBody(
+    String clientName,
+    String amount,
+    String currency,
+    String contractNumber,
+  ) {
+    return '$clientName owes $amount $currency (Contract N° $contractNumber)';
+  }
+
+  @override
+  String get notifDueSoonTitle => '📅 Payment Due Soon';
+
+  @override
+  String get notifDueTodayMsg => 'Payment due today!';
+
+  @override
+  String notifDueInDaysMsg(int days) {
+    return 'Payment due in $days day(s)';
+  }
+
+  @override
+  String notifDueSoonBody(
+    String clientName,
+    String dueMsg,
+    String amount,
+    String currency,
+  ) {
+    return '$clientName — $dueMsg ($amount $currency)';
+  }
 }

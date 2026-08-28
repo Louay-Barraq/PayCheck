@@ -70,7 +70,9 @@
   "periodUntil": "Hasta {date}",
   "@periodUntil": {
     "placeholders": {
-      "date": { "type": "String" }
+      "date": {
+        "type": "String"
+      }
     }
   },
   "paymentMethod": "Método de pago",
@@ -93,14 +95,18 @@
   "allOverdueClients": "Clientes atrasados ({count})",
   "@allOverdueClients": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "contract": "Contrato",
   "viewAllOverdue": "Ver todos los retrasos (+{count})",
   "@viewAllOverdue": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noClients": "No hay clientes aún. ¡Añade tu primer cliente!",
@@ -124,13 +130,17 @@
   "vsLastMonth": "{pct}% vs mes anterior",
   "@vsLastMonth": {
     "placeholders": {
-      "pct": { "type": "String" }
+      "pct": {
+        "type": "String"
+      }
     }
   },
   "paymentsCount": "{count} pagos",
   "@paymentsCount": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "overdueTitle": "Clientes atrasados",
@@ -139,19 +149,16 @@
   "historyTitle": "Historial de pagos",
   "history": "Historial",
   "noPaymentsHistory": "No hay pagos registrados",
-
   "onbNext": "Siguiente",
   "onbSkip": "Omitir",
   "onbGetStarted": "Empezar",
   "onbFinish": "¡Listo! 🎉",
-
   "feat1Title": "Gestiona tus clientes",
   "feat1Desc": "Añade clientes con sus contratos, calendarios e información de contacto — todo organizado en un solo lugar.",
   "feat2Title": "Registra cada pago",
   "feat2Desc": "Registra pagos en efectivo, tarjeta, cheque o transferencia y genera recibos en segundos.",
   "feat3Title": "Métricas instantáneas",
   "feat3Desc": "Consulta tus ingresos mensuales, clientes con pagos atrasados y próximos vencimientos de un vistazo.",
-
   "onbProfessionTitle": "¿Cuál es tu profesión?",
   "onbProfessionSubtitle": "Adaptaremos la experiencia a tu trabajo",
   "profRealEstate": "Agente Inmobiliario",
@@ -161,7 +168,6 @@
   "profFreelancer": "Freelancer",
   "profBusinessOwner": "Empresario",
   "profOther": "Otro",
-
   "onbAgeTitle": "¿Cuántos años tienes?",
   "onbAgeSubtitle": "Ayúdanos a entender mejor a nuestros usuarios",
   "ageUnder25": "Menos de 25",
@@ -169,14 +175,20 @@
   "age35_44": "35 – 44",
   "age45_54": "45 – 54",
   "age55Plus": "55 +",
-
   "onbCountryTitle": "¿Dónde estás?",
   "onbCountrySubtitle": "Configuraremos automáticamente la moneda correcta para ti",
   "onbCountrySearch": "Buscar país...",
-
   "onbNotifTitle": "No te pierdas ningún pago",
   "onbNotifSubtitle": "Recibe recordatorios antes de las fechas de vencimiento para mantenerte al día de tus ingresos.",
   "onbNotifEnable": "Activar notificaciones",
   "onbNotifSkip": "Quizás más tarde",
-  "onbNotifGranted": "Notificaciones activadas ✓"
+  "onbNotifGranted": "Notificaciones activadas ✓",
+  "notifEnabledTitle": "Notificaciones activadas ✓",
+  "notifEnabledBody": "PayCheck te avisará cuando los pagos de tus clientes venzan o estén atrasados.",
+  "notifOverdueTitle": "⚠️ Alerta de pago atrasado",
+  "notifOverdueBody": "{clientName} debe {amount} {currency} (Contrato N° {contractNumber})",
+  "notifDueSoonTitle": "📅 Pago próximo a vencer",
+  "notifDueTodayMsg": "¡Pago vence hoy!",
+  "notifDueInDaysMsg": "Pago vence en {days} día(s)",
+  "notifDueSoonBody": "{clientName} — {dueMsg} ({amount} {currency})"
 }

@@ -75,7 +75,20 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Future<void> _requestNotifications() async {
-    final granted = await ref.read(notificationServiceProvider).requestPermissions();
+    final l10n = AppLocalizations.of(context)!;
+    final texts = NotificationTexts(
+      enabledTitle: l10n.notifEnabledTitle,
+      enabledBody: l10n.notifEnabledBody,
+      overdueTitle: l10n.notifOverdueTitle,
+      overdueBody: (clientName, amount, currency, contractNumber) =>
+          l10n.notifOverdueBody(clientName, amount, currency, contractNumber),
+      dueSoonTitle: l10n.notifDueSoonTitle,
+      dueTodayMsg: l10n.notifDueTodayMsg,
+      dueInDaysMsg: (days) => l10n.notifDueInDaysMsg(days),
+      dueSoonBody: (clientName, dueMsg, amount, currency) =>
+          l10n.notifDueSoonBody(clientName, dueMsg, amount, currency),
+    );
+    final granted = await ref.read(notificationServiceProvider).requestPermissions(texts: texts);
     if (!mounted) return;
     setState(() => _notifGranted = granted);
   }

@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
 import '../models/client.dart';
-import '../models/payment.dart';
-import '../providers/client_providers.dart';
 import '../providers/dashboard_providers.dart';
-import '../providers/payment_providers.dart';
 import '../providers/user_profile_provider.dart';
 import '../services/notification_service.dart';
 import '../theme/app_theme.dart';
@@ -123,6 +120,35 @@ class DashboardScreen extends ConsumerWidget {
     final currency = ref.watch(currencySymbolProvider);
     final dashAsync = ref.watch(dashboardProvider);
 
+    // Fire local payment-due/overdue alerts whenever the dashboard's
+    // computed data changes. NotificationService itself de-dupes by
+    // client + alert-state + calendar day, so this is safe to trigger
+    // on every emission (including repeat Firestore stream events)
+    // without re-alerting the user for something it already told them.
+    ref.listen<AsyncValue<DashboardData>>(dashboardProvider, (previous, next) {
+      final data = next.value;
+      if (data == null) return;
+      final texts = NotificationTexts(
+        enabledTitle: l10n.notifEnabledTitle,
+        enabledBody: l10n.notifEnabledBody,
+        overdueTitle: l10n.notifOverdueTitle,
+        overdueBody: (clientName, amount, curr, contractNumber) =>
+            l10n.notifOverdueBody(clientName, amount, curr, contractNumber),
+        dueSoonTitle: l10n.notifDueSoonTitle,
+        dueTodayMsg: l10n.notifDueTodayMsg,
+        dueInDaysMsg: (days) => l10n.notifDueInDaysMsg(days),
+        dueSoonBody: (clientName, dueMsg, amount, curr) =>
+            l10n.notifDueSoonBody(clientName, dueMsg, amount, curr),
+      );
+      ref.read(notificationServiceProvider).checkAndSendPaymentAlerts(
+            overdueClients: data.overdueClients,
+            dueSoonClients: data.dueSoon,
+            nextDueDates: data.nextDueDates,
+            currencySymbol: currency,
+            texts: texts,
+          );
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.dashboard),
@@ -139,18 +165,6 @@ class DashboardScreen extends ConsumerWidget {
       ),
       body: dashAsync.when(
         data: (data) {
-          ref.read(clientsProvider).whenData((clients) {
-            final Map<String, List<Payment>> paymentsByClient = {};
-            for (final c in clients) {
-              paymentsByClient[c.id] = ref.watch(paymentsForClientProvider(c.id)).value ?? [];
-            }
-            ref.read(notificationServiceProvider).checkAndSendPaymentAlerts(
-                  clients: clients,
-                  paymentsByClient: paymentsByClient,
-                  currencySymbol: currency,
-                );
-          });
-
           return ListView(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
           children: [

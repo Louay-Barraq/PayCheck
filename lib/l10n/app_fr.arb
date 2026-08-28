@@ -70,7 +70,9 @@
   "periodUntil": "Jusqu'au {date}",
   "@periodUntil": {
     "placeholders": {
-      "date": { "type": "String" }
+      "date": {
+        "type": "String"
+      }
     }
   },
   "paymentMethod": "Mode de paiement",
@@ -93,14 +95,18 @@
   "allOverdueClients": "Clients en retard ({count})",
   "@allOverdueClients": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "contract": "Contrat",
   "viewAllOverdue": "Voir tous les retards (+{count})",
   "@viewAllOverdue": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noClients": "Aucun client pour le moment. Ajoutez votre premier client !",
@@ -124,13 +130,17 @@
   "vsLastMonth": "{pct}% vs mois dernier",
   "@vsLastMonth": {
     "placeholders": {
-      "pct": { "type": "String" }
+      "pct": {
+        "type": "String"
+      }
     }
   },
   "paymentsCount": "{count} paiements",
   "@paymentsCount": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "overdueTitle": "Clients en retard",
@@ -139,19 +149,16 @@
   "historyTitle": "Historique des paiements",
   "history": "Historique",
   "noPaymentsHistory": "Aucun paiement enregistré",
-
   "onbNext": "Suivant",
   "onbSkip": "Passer",
   "onbGetStarted": "Commencer",
   "onbFinish": "C'est parti ! 🎉",
-
   "feat1Title": "Gérez vos clients",
   "feat1Desc": "Ajoutez vos clients avec leurs contrats, échéances et coordonnées — tout organisé en un seul endroit.",
   "feat2Title": "Suivez chaque paiement",
   "feat2Desc": "Enregistrez les paiements en espèces, carte, chèque ou virement et générez des quittances en quelques secondes.",
   "feat3Title": "Tableau de bord instantané",
   "feat3Desc": "Visualisez vos encaissements du mois, vos clients en retard et vos prochaines échéances d'un coup d'œil.",
-
   "onbProfessionTitle": "Quelle est votre profession ?",
   "onbProfessionSubtitle": "Nous adapterons l'application à votre activité",
   "profRealEstate": "Agent Immobilier",
@@ -161,7 +168,6 @@
   "profFreelancer": "Freelance",
   "profBusinessOwner": "Chef d'entreprise",
   "profOther": "Autre",
-
   "onbAgeTitle": "Quel âge avez-vous ?",
   "onbAgeSubtitle": "Aidez-nous à mieux comprendre nos utilisateurs",
   "ageUnder25": "Moins de 25 ans",
@@ -169,14 +175,20 @@
   "age35_44": "35 – 44 ans",
   "age45_54": "45 – 54 ans",
   "age55Plus": "55 ans et +",
-
   "onbCountryTitle": "Où êtes-vous basé ?",
   "onbCountrySubtitle": "Nous définirons automatiquement la bonne devise pour vous",
   "onbCountrySearch": "Rechercher un pays...",
-
   "onbNotifTitle": "Ne ratez aucun paiement",
   "onbNotifSubtitle": "Recevez des rappels avant les dates d'échéance pour ne jamais manquer un encaissement.",
   "onbNotifEnable": "Activer les notifications",
   "onbNotifSkip": "Peut-être plus tard",
-  "onbNotifGranted": "Notifications activées ✓"
+  "onbNotifGranted": "Notifications activées ✓",
+  "notifEnabledTitle": "Notifications activées ✓",
+  "notifEnabledBody": "PayCheck vous alertera lorsque les paiements de vos clients seront dus ou en retard.",
+  "notifOverdueTitle": "⚠️ Alerte paiement en retard",
+  "notifOverdueBody": "{clientName} doit {amount} {currency} (Contrat N° {contractNumber})",
+  "notifDueSoonTitle": "📅 Paiement bientôt dû",
+  "notifDueTodayMsg": "Paiement dû aujourd'hui !",
+  "notifDueInDaysMsg": "Paiement dû dans {days} jour(s)",
+  "notifDueSoonBody": "{clientName} — {dueMsg} ({amount} {currency})"
 }

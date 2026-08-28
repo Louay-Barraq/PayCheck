@@ -70,7 +70,9 @@
   "periodUntil": "حتى {date}",
   "@periodUntil": {
     "placeholders": {
-      "date": { "type": "String" }
+      "date": {
+        "type": "String"
+      }
     }
   },
   "paymentMethod": "طريقة الدفع",
@@ -93,14 +95,18 @@
   "allOverdueClients": "العملاء المتأخرون ({count})",
   "@allOverdueClients": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "contract": "عقد",
   "viewAllOverdue": "عرض كافة المتأخرات (+{count})",
   "@viewAllOverdue": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noClients": "لا يوجد عملاء حالياً. أضف عميلك الأول!",
@@ -124,13 +130,17 @@
   "vsLastMonth": "{pct}% مقارنة بالشهر الماضي",
   "@vsLastMonth": {
     "placeholders": {
-      "pct": { "type": "String" }
+      "pct": {
+        "type": "String"
+      }
     }
   },
   "paymentsCount": "{count} دفعة",
   "@paymentsCount": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "overdueTitle": "العملاء المتأخرون",
@@ -139,19 +149,16 @@
   "historyTitle": "سجل المدفوعات",
   "history": "السجل",
   "noPaymentsHistory": "لا توجد مدفوعات مسجلة",
-
   "onbNext": "التالي",
   "onbSkip": "تخطي",
   "onbGetStarted": "ابدأ الآن",
   "onbFinish": "انطلق! 🎉",
-
   "feat1Title": "أدِر عملاءك",
   "feat1Desc": "أضف العملاء مع عقودهم ومواعيدهم ومعلومات التواصل — كل شيء منظم في مكان واحد.",
   "feat2Title": "تتبّع كل دفعة",
   "feat2Desc": "سجّل المدفوعات نقداً أو ببطاقة أو بشيك أو بحوالة، وأصدر الوصولات في ثوانٍ.",
   "feat3Title": "إحصاءات فورية",
   "feat3Desc": "اطّلع على إيراداتك الشهرية والمدفوعات المتأخرة والاستحقاقات القادمة دفعة واحدة.",
-
   "onbProfessionTitle": "ما هي مهنتك؟",
   "onbProfessionSubtitle": "سنخصّص التطبيق ليناسب عملك",
   "profRealEstate": "وكيل عقاري",
@@ -161,7 +168,6 @@
   "profFreelancer": "مستقل",
   "profBusinessOwner": "صاحب عمل",
   "profOther": "أخرى",
-
   "onbAgeTitle": "كم عمرك؟",
   "onbAgeSubtitle": "ساعدنا على فهم مستخدمينا بشكل أفضل",
   "ageUnder25": "أقل من 25",
@@ -169,14 +175,20 @@
   "age35_44": "35 – 44",
   "age45_54": "45 – 54",
   "age55Plus": "55 فأكثر",
-
   "onbCountryTitle": "أين تقيم؟",
   "onbCountrySubtitle": "سنضبط العملة المناسبة لك تلقائياً",
   "onbCountrySearch": "ابحث عن دولة...",
-
   "onbNotifTitle": "لا تفوّت أي دفعة",
   "onbNotifSubtitle": "احصل على تذكيرات قبل مواعيد الاستحقاق لتبقى دائماً على اطلاع بإيراداتك.",
   "onbNotifEnable": "تفعيل الإشعارات",
   "onbNotifSkip": "ربما لاحقاً",
-  "onbNotifGranted": "تم تفعيل الإشعارات ✓"
+  "onbNotifGranted": "تم تفعيل الإشعارات ✓",
+  "notifEnabledTitle": "تم تفعيل الإشعارات ✓",
+  "notifEnabledBody": "سيقوم PayCheck بتنبيهك عند استحقاق أو تأخر دفعات عملائك.",
+  "notifOverdueTitle": "⚠️ تنبيه دفعة متأخرة",
+  "notifOverdueBody": "{clientName} مدين بمبلغ {amount} {currency} (عقد رقم {contractNumber})",
+  "notifDueSoonTitle": "📅 دفعة مستحقة قريباً",
+  "notifDueTodayMsg": "الدفعة مستحقة اليوم!",
+  "notifDueInDaysMsg": "الدفعة مستحقة خلال {days} يوم",
+  "notifDueSoonBody": "{clientName} — {dueMsg} ({amount} {currency})"
 }

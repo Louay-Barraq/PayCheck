@@ -469,4 +469,45 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get onbNotifGranted => 'تم تفعيل الإشعارات ✓';
+
+  @override
+  String get notifEnabledTitle => 'تم تفعيل الإشعارات ✓';
+
+  @override
+  String get notifEnabledBody =>
+      'سيقوم PayCheck بتنبيهك عند استحقاق أو تأخر دفعات عملائك.';
+
+  @override
+  String get notifOverdueTitle => '⚠️ تنبيه دفعة متأخرة';
+
+  @override
+  String notifOverdueBody(
+    String clientName,
+    String amount,
+    String currency,
+    String contractNumber,
+  ) {
+    return '$clientName مدين بمبلغ $amount $currency (عقد رقم $contractNumber)';
+  }
+
+  @override
+  String get notifDueSoonTitle => '📅 دفعة مستحقة قريباً';
+
+  @override
+  String get notifDueTodayMsg => 'الدفعة مستحقة اليوم!';
+
+  @override
+  String notifDueInDaysMsg(int days) {
+    return 'الدفعة مستحقة خلال $days يوم';
+  }
+
+  @override
+  String notifDueSoonBody(
+    String clientName,
+    String dueMsg,
+    String amount,
+    String currency,
+  ) {
+    return '$clientName — $dueMsg ($amount $currency)';
+  }
 }

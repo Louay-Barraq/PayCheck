@@ -18,6 +18,7 @@ class DashboardData {
   final List<Client> dueSoon;
   final int totalActiveClients;
   final double averagePayment;
+  final Map<String, DateTime> nextDueDates;
 
   const DashboardData({
     required this.collectedThisMonth,
@@ -31,6 +32,7 @@ class DashboardData {
     required this.dueSoon,
     required this.totalActiveClients,
     required this.averagePayment,
+    required this.nextDueDates,
   });
 
   double get monthOverMonthPct {
@@ -74,6 +76,7 @@ final dashboardProvider = Provider<AsyncValue<DashboardData>>((ref) {
 
         final overdueClients = <Client>[];
         final dueSoon = <Client>[];
+        final nextDueDates = <String, DateTime>{};
         final in7Days = now.add(const Duration(days: 7));
         double totalOverdueAmount = 0;
         int totalActiveClients = 0;
@@ -83,6 +86,7 @@ final dashboardProvider = Provider<AsyncValue<DashboardData>>((ref) {
           totalActiveClients++;
           final payments = paymentsByClient[c.id] ?? [];
           final nextDue = computeNextDue(c, payments);
+          nextDueDates[c.id] = nextDue;
           if (nextDue.isBefore(now)) {
             overdueClients.add(c);
             totalOverdueAmount += c.amountDue;
@@ -105,6 +109,7 @@ final dashboardProvider = Provider<AsyncValue<DashboardData>>((ref) {
           dueSoon: dueSoon,
           totalActiveClients: totalActiveClients,
           averagePayment: paymentsCountThisMonth == 0 ? 0 : collectedThisMonth / paymentsCountThisMonth,
+          nextDueDates: nextDueDates,
         ));
       },
       loading: () => const AsyncValue.loading(),

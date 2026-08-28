@@ -989,6 +989,64 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notifications enabled ✓'**
   String get onbNotifGranted;
+
+  /// No description provided for @notifEnabledTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications Enabled ✓'**
+  String get notifEnabledTitle;
+
+  /// No description provided for @notifEnabledBody.
+  ///
+  /// In en, this message translates to:
+  /// **'PayCheck will alert you when client payments are due or overdue.'**
+  String get notifEnabledBody;
+
+  /// No description provided for @notifOverdueTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'⚠️ Overdue Payment Alert'**
+  String get notifOverdueTitle;
+
+  /// No description provided for @notifOverdueBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{clientName} owes {amount} {currency} (Contract N° {contractNumber})'**
+  String notifOverdueBody(
+    String clientName,
+    String amount,
+    String currency,
+    String contractNumber,
+  );
+
+  /// No description provided for @notifDueSoonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'📅 Payment Due Soon'**
+  String get notifDueSoonTitle;
+
+  /// No description provided for @notifDueTodayMsg.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment due today!'**
+  String get notifDueTodayMsg;
+
+  /// No description provided for @notifDueInDaysMsg.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment due in {days} day(s)'**
+  String notifDueInDaysMsg(int days);
+
+  /// No description provided for @notifDueSoonBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{clientName} — {dueMsg} ({amount} {currency})'**
+  String notifDueSoonBody(
+    String clientName,
+    String dueMsg,
+    String amount,
+    String currency,
+  );
 }
 
 class _AppLocalizationsDelegate

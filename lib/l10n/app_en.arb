@@ -70,7 +70,9 @@
   "periodUntil": "Until {date}",
   "@periodUntil": {
     "placeholders": {
-      "date": { "type": "String" }
+      "date": {
+        "type": "String"
+      }
     }
   },
   "paymentMethod": "Payment Method",
@@ -93,14 +95,18 @@
   "allOverdueClients": "All Overdue Clients ({count})",
   "@allOverdueClients": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "contract": "Contract",
   "viewAllOverdue": "See all overdue (+{count})",
   "@viewAllOverdue": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "noClients": "No clients yet. Add your first client!",
@@ -124,13 +130,17 @@
   "vsLastMonth": "{pct}% vs last month",
   "@vsLastMonth": {
     "placeholders": {
-      "pct": { "type": "String" }
+      "pct": {
+        "type": "String"
+      }
     }
   },
   "paymentsCount": "{count} payments",
   "@paymentsCount": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "overdueTitle": "Overdue Clients",
@@ -139,19 +149,16 @@
   "historyTitle": "Payment History",
   "history": "History",
   "noPaymentsHistory": "No payments recorded",
-
   "onbNext": "Next",
   "onbSkip": "Skip",
   "onbGetStarted": "Get Started",
   "onbFinish": "All Set! 🎉",
-
   "feat1Title": "Manage Your Clients",
   "feat1Desc": "Add clients with their contracts, schedules, and contact info — all organized in one place.",
   "feat2Title": "Track Every Payment",
   "feat2Desc": "Record payments by cash, card, check, or transfer and generate receipts in seconds.",
   "feat3Title": "Instant Insights",
   "feat3Desc": "See your monthly revenue, overdue clients, and upcoming payments at a glance.",
-
   "onbProfessionTitle": "What's your profession?",
   "onbProfessionSubtitle": "We'll tailor the experience to fit your work",
   "profRealEstate": "Real Estate Agent",
@@ -161,7 +168,6 @@
   "profFreelancer": "Freelancer",
   "profBusinessOwner": "Business Owner",
   "profOther": "Other",
-
   "onbAgeTitle": "How old are you?",
   "onbAgeSubtitle": "Help us understand our users better",
   "ageUnder25": "Under 25",
@@ -169,15 +175,59 @@
   "age35_44": "35 – 44",
   "age45_54": "45 – 54",
   "age55Plus": "55 +",
-
   "onbCountryTitle": "Where are you based?",
   "onbCountrySubtitle": "We'll set the right currency for you automatically",
   "onbCountrySearch": "Search country...",
-
   "onbNotifTitle": "Never Miss a Payment",
   "onbNotifSubtitle": "Get reminders before payment due dates so you always stay on top of your revenue.",
   "onbNotifEnable": "Enable Notifications",
   "onbNotifSkip": "Maybe Later",
-  "onbNotifGranted": "Notifications enabled ✓"
+  "onbNotifGranted": "Notifications enabled ✓",
+  "notifEnabledTitle": "Notifications Enabled ✓",
+  "notifEnabledBody": "PayCheck will alert you when client payments are due or overdue.",
+  "notifOverdueTitle": "⚠️ Overdue Payment Alert",
+  "notifOverdueBody": "{clientName} owes {amount} {currency} (Contract N° {contractNumber})",
+  "@notifOverdueBody": {
+    "placeholders": {
+      "clientName": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      },
+      "currency": {
+        "type": "String"
+      },
+      "contractNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "notifDueSoonTitle": "📅 Payment Due Soon",
+  "notifDueTodayMsg": "Payment due today!",
+  "notifDueInDaysMsg": "Payment due in {days} day(s)",
+  "@notifDueInDaysMsg": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "notifDueSoonBody": "{clientName} — {dueMsg} ({amount} {currency})",
+  "@notifDueSoonBody": {
+    "placeholders": {
+      "clientName": {
+        "type": "String"
+      },
+      "dueMsg": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      },
+      "currency": {
+        "type": "String"
+      }
+    }
+  }
 }
-

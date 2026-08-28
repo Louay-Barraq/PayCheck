@@ -470,4 +470,45 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get onbNotifGranted => 'Notificaciones activadas ✓';
+
+  @override
+  String get notifEnabledTitle => 'Notificaciones activadas ✓';
+
+  @override
+  String get notifEnabledBody =>
+      'PayCheck te avisará cuando los pagos de tus clientes venzan o estén atrasados.';
+
+  @override
+  String get notifOverdueTitle => '⚠️ Alerta de pago atrasado';
+
+  @override
+  String notifOverdueBody(
+    String clientName,
+    String amount,
+    String currency,
+    String contractNumber,
+  ) {
+    return '$clientName debe $amount $currency (Contrato N° $contractNumber)';
+  }
+
+  @override
+  String get notifDueSoonTitle => '📅 Pago próximo a vencer';
+
+  @override
+  String get notifDueTodayMsg => '¡Pago vence hoy!';
+
+  @override
+  String notifDueInDaysMsg(int days) {
+    return 'Pago vence en $days día(s)';
+  }
+
+  @override
+  String notifDueSoonBody(
+    String clientName,
+    String dueMsg,
+    String amount,
+    String currency,
+  ) {
+    return '$clientName — $dueMsg ($amount $currency)';
+  }
 }
