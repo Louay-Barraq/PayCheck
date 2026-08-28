@@ -1,6 +1,6 @@
 {
-    "name": "khlasati",
-    "short_name": "khlasati",
+    "name": "PayCheck",
+    "short_name": "PayCheck",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
