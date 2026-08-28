@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politique de Confidentialité — PayCheck</title>
+  <style>
+    :root {
+      --primary: #0F6B5C;
+      --primary-light: #E3F2EF;
+      --text: #1C2530;
+      --text-secondary: #6B7684;
+      --bg: #F7F8FA;
+      --surface: #FFFFFF;
+      --border: #E2E8F0;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--surface);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border);
+    }
+    .header {
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 13px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 28px;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .updated {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+    h2 {
+      font-size: 20px;
+      color: var(--primary);
+      margin-top: 32px;
+      margin-bottom: 16px;
+      border-left: 4px solid var(--primary);
+      padding-left: 12px;
+    }
+    p, ul {
+      margin-bottom: 16px;
+      color: var(--text);
+      font-size: 15px;
+    }
+    ul {
+      padding-left: 24px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    code {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .callout {
+      background: var(--primary-light);
+      border-left: 4px solid var(--primary);
+      padding: 16px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="badge">PayCheck · Application Mobile</div>
+      <h1>Politique de Confidentialité</h1>
+      <div class="updated">Dernière mise à jour : 28 Août 2026</div>
+    </div>
+
+    <p>
+      L'application <strong>PayCheck</strong> (« l'application »), développée par <strong>Louay Barraq</strong>, est un outil de gestion et de suivi des contrats, échéances et quittances de paiement. Cette politique de confidentialité a pour but de vous informer de manière transparente sur les données collectées, leur utilisation, leur sécurisation et vos droits.
+    </p>
+
+    <h2>1. Données collectées et finalité</h2>
+    <p>Pour assurer le bon fonctionnement de l'application et la synchronisation de vos données professionnelles entre vos appareils, nous collectons les informations suivantes :</p>
+    <ul>
+      <li><strong>Informations de compte :</strong> Votre adresse email, identifiant unique d'authentification (UID), et éventuellement votre nom d'affichage fourni lors de la connexion via Email ou Google Sign-In.</li>
+      <li><strong>Données de gestion créées par l'utilisateur :</strong> Les informations relatives à vos clients (nom, numéro de contrat, numéro de téléphone, adresse, périodicité de paiement) et à leurs paiements (montant, date de règlement, période couverte, mode de paiement, statut de quittance).</li>
+    </ul>
+
+    <h2>2. Services tiers utilisés</h2>
+    <p>L'application s'appuie sur les services d'infrastructure sécurisés de <strong>Google Firebase</strong> (Google Cloud Platform) :</p>
+    <ul>
+      <li><strong>Firebase Authentication :</strong> Utilisé pour sécuriser la création de compte et l'authentification des utilisateurs.</li>
+      <li><strong>Cloud Firestore :</strong> Utilisé pour le stockage cloud sécurisé, le chiffrement et la synchronisation de vos données.</li>
+      <li><strong>Google Sign-In :</strong> Utilisé en option pour vous connecter avec votre compte Google.</li>
+    </ul>
+    <p>Nous vous invitons à consulter la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Politique de Confidentialité de Google</a> pour en savoir plus sur leurs normes de sécurité.</p>
+
+    <h2>3. Aucune publicité et aucune vente de données</h2>
+    <div class="callout">
+      <strong>Engagement de confidentialité :</strong> PayCheck n'intègre aucun réseau publicitaire, aucun traceur marketing, et ne vend, ne loue, ni ne transmet aucune donnée personnelle ou commerciale à des tiers. Vos données vous appartiennent exclusivement.
+    </div>
+
+    <h2>4. Sécurité et cloisonnement des données</h2>
+    <p>
+      Vos données sont stockées de manière strictement cloisonnée. Grâce aux règles de sécurité <code>Firestore Security Rules</code> et à l'isolation par compte (multi-tenant), aucun autre utilisateur de l'application ne peut accéder, lire ou modifier vos clients et quittances. Toutes les communications réseau sont chiffrées de bout en bout via le protocole TLS/HTTPS.
+    </p>
+
+    <h2>5. Suppression du compte et des données (Droit à l'oubli)</h2>
+    <p>
+      Vous conservez le contrôle total de vos données :
+    </p>
+    <ul>
+      <li>Vous pouvez modifier ou supprimer individuellement chaque client ou paiement directement dans l'application.</li>
+      <li><strong>Suppression intégrale du compte :</strong> Vous pouvez à tout moment supprimer définitivement votre compte et l'intégralité de vos données associées (clients, contrats, historique des paiements) depuis l'écran <em>Paramètres &gt; Supprimer mon compte</em> de l'application. Cette action efface immédiatement et irréversiblement toutes vos données de nos serveurs.</li>
+    </ul>
+
+    <h2>6. Autorisations requises</h2>
+    <ul>
+      <li><code>INTERNET</code> : Nécessaire pour communiquer de manière chiffrée avec les services d'authentification et de base de données Firebase.</li>
+      <li><code>ACCESS_NETWORK_STATE</code> : Utilisé pour détecter la connectivité réseau et activer le mode de fonctionnement hors-ligne (mise en cache locale).</li>
+    </ul>
+
+    <h2>7. Protection de la vie privée des enfants</h2>
+    <p>
+      L'application s'adresse à des professionnels et particuliers majeurs gérant des contrats. Elle ne collecte pas sciemment d'informations auprès d'enfants de moins de 13 ans.
+    </p>
+
+    <h2>8. Modifications de la présente politique</h2>
+    <p>
+      Nous nous réservons le droit de mettre à jour cette politique de confidentialité si de nouvelles fonctionnalités le requièrent. La date de dernière mise à jour sera actualisée en haut de cette page.
+    </p>
+
+    <h2>9. Contact</h2>
+    <p>
+      Pour toute question, remarque ou demande concernant cette politique de confidentialité ou vos données personnelles, vous pouvez nous contacter via :
+    </p>
+    <ul>
+      <li>GitHub : <a href="https://github.com/Louay-Barraq" target="_blank" rel="noopener">github.com/Louay-Barraq</a></li>
+    </ul>
+
+    <footer>
+      © 2026 PayCheck · Développé par Louay Barraq · Tous droits réservés.
+    </footer>
+  </div>
+</body>
+</html>
