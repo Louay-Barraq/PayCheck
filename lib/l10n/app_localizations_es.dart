@@ -12,6 +12,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get appTitle => 'PayCheck';
 
   @override
+  String get appSubtitle => 'Gestión de contratos y recibos';
+
+  @override
   String get clients => 'Clientes';
 
   @override
@@ -27,10 +30,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get password => 'Contraseña';
 
   @override
+  String get confirmPassword => 'Confirmar contraseña';
+
+  @override
   String get signIn => 'Iniciar sesión';
 
   @override
   String get signUp => 'Registrarse';
+
+  @override
+  String get createAccount => 'Crear cuenta';
 
   @override
   String get orContinueWith => 'O CONTINUAR CON';
@@ -59,6 +68,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get cancel => 'Cancelar';
+
+  @override
+  String get close => 'Cerrar';
 
   @override
   String get emailSentSuccess =>
@@ -114,6 +126,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get editClient => 'Editar cliente';
 
   @override
+  String get clientDetails => 'Detalles del cliente';
+
+  @override
   String get fullName => 'Nombre completo';
 
   @override
@@ -147,6 +162,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get contractStartDate => 'Fecha de inicio del contrato';
 
   @override
+  String get nextPaymentDue => 'Próximo pago pendiente';
+
+  @override
   String get active => 'Activo';
 
   @override
@@ -171,7 +189,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get addPayment => 'Añadir pago';
 
   @override
-  String get amountPaid => 'Monto pagado';
+  String get recordPayment => 'Registrar pago';
+
+  @override
+  String get paymentHistory => 'Historial de pagos';
+
+  @override
+  String get viewHistory => 'Ver historial';
+
+  @override
+  String get amountPaid => 'Monto pagado (DT)';
 
   @override
   String get paymentDate => 'Fecha de pago';
@@ -180,7 +207,15 @@ class AppLocalizationsEs extends AppLocalizations {
   String get periodStart => 'Inicio del período';
 
   @override
+  String get periodCoveredFrom => 'Inicio del período cubierto';
+
+  @override
   String get periodEnd => 'Fin del período';
+
+  @override
+  String periodUntil(String date) {
+    return 'Hasta $date';
+  }
 
   @override
   String get paymentMethod => 'Método de pago';
@@ -201,10 +236,25 @@ class AppLocalizationsEs extends AppLocalizations {
   String get quittanceGiven => 'Recibo entregado';
 
   @override
+  String get quittanceRemote => 'Pago a distancia — recuerda enviar el recibo';
+
+  @override
   String get quittanceDate => 'Fecha del recibo';
 
   @override
   String get paymentAdded => '¡Pago registrado con éxito!';
+
+  @override
+  String get savingPayment => 'Guardando...';
+
+  @override
+  String get savePayment => 'Guardar pago';
+
+  @override
+  String get invalidAmount => 'Monto inválido';
+
+  @override
+  String get enterValidAmount => 'Ingrese un monto válido (> 0)';
 
   @override
   String get totalRevenue => 'Ingresos totales';
@@ -219,7 +269,17 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pendingQuittances => 'Recibos pendientes';
 
   @override
-  String get viewAllOverdue => 'Ver todos los retrasos';
+  String allOverdueClients(int count) {
+    return 'Clientes atrasados ($count)';
+  }
+
+  @override
+  String get contract => 'Contrato';
+
+  @override
+  String viewAllOverdue(int count) {
+    return 'Ver todos los retrasos (+$count)';
+  }
 
   @override
   String get noClients => 'No hay clientes aún. ¡Añade tu primer cliente!';
@@ -247,5 +307,60 @@ class AppLocalizationsEs extends AppLocalizations {
       'Por razones de seguridad, inicie sesión de nuevo antes de eliminar su cuenta.';
 
   @override
+  String get invalidEmail => 'Correo inválido';
+
+  @override
+  String get minPasswordLength => 'Mínimo 6 caracteres';
+
+  @override
+  String get passwordsDoNotMatch => 'Las contraseñas no coinciden';
+
+  @override
+  String get requiredField => 'Campo obligatorio';
+
+  @override
+  String get infoAndLegal => 'Información y Legal';
+
+  @override
+  String get account => 'Cuenta';
+
+  @override
+  String get loginFailed => 'Error al iniciar sesión';
+
+  @override
+  String get googleSignInFailed => 'Error al iniciar sesión con Google';
+
+  @override
   String get error => 'Error';
+
+  @override
+  String get collectedThisMonth => 'Recaudado este mes';
+
+  @override
+  String vsLastMonth(String pct) {
+    return '$pct% vs mes anterior';
+  }
+
+  @override
+  String paymentsCount(int count) {
+    return '$count pagos';
+  }
+
+  @override
+  String get overdueTitle => 'Clientes atrasados';
+
+  @override
+  String get distributionByMethod => 'Distribución por método de pago';
+
+  @override
+  String get dueSoon => 'Próximos vencimientos (7d)';
+
+  @override
+  String get historyTitle => 'Historial de pagos';
+
+  @override
+  String get history => 'Historial';
+
+  @override
+  String get noPaymentsHistory => 'No hay pagos registrados';
 }

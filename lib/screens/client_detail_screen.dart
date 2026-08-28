@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../l10n/app_localizations.dart';
 import '../utils/payment_utils.dart';
 import '../models/client.dart';
 import '../models/payment.dart';
@@ -17,6 +18,7 @@ class ClientDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final paymentsAsync = ref.watch(paymentsForClientProvider(client.id));
 
     return Scaffold(
@@ -34,9 +36,7 @@ class ClientDetailScreen extends ConsumerWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        updated.isActive
-                            ? 'Client réactivé'
-                            : 'Client désactivé / archivé',
+                        updated.isActive ? l10n.activate : l10n.archive,
                       ),
                     ),
                   );
@@ -55,7 +55,7 @@ class ClientDetailScreen extends ConsumerWidget {
                       size: 20,
                     ),
                     const SizedBox(width: 8),
-                    Text(client.isActive ? 'Désactiver le client' : 'Activer le client'),
+                    Text(client.isActive ? l10n.archive : l10n.activate),
                   ],
                 ),
               ),
@@ -81,7 +81,7 @@ class ClientDetailScreen extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Contrat: ${client.contractNumber}',
+                            '${l10n.contractNumber}: ${client.contractNumber}',
                             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                           ),
                           if (!client.isActive)
@@ -91,20 +91,20 @@ class ClientDetailScreen extends ConsumerWidget {
                                 color: Colors.grey.shade200,
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: const Text(
-                                'Inactif',
-                                style: TextStyle(fontSize: 11, color: Colors.grey, fontWeight: FontWeight.bold),
+                              child: Text(
+                                l10n.inactive,
+                                style: const TextStyle(fontSize: 11, color: Colors.grey, fontWeight: FontWeight.bold),
                               ),
                             ),
                         ],
                       ),
                       const SizedBox(height: 6),
-                      Text('Périodicité: ${client.paymentPeriod.label}'),
-                      Text('Montant dû: ${client.amountDue.toStringAsFixed(0)} DT'),
+                      Text('${l10n.paymentPeriod}: ${client.paymentPeriod.localizedLabel(context)}'),
+                      Text('${l10n.amountDue}: ${client.amountDue.toStringAsFixed(0)} DT'),
                       if (client.phone != null && client.phone!.isNotEmpty)
-                        Text('Téléphone: ${client.phone}'),
+                        Text('${l10n.phone}: ${client.phone}'),
                       if (client.address != null && client.address!.isNotEmpty)
-                        Text('Adresse: ${client.address}'),
+                        Text('${l10n.address}: ${client.address}'),
                       const SizedBox(height: 10),
                       Row(
                         children: [
@@ -118,8 +118,8 @@ class ClientDetailScreen extends ConsumerWidget {
                           const SizedBox(width: 6),
                           Text(
                             isPaymentOverdue
-                                ? 'En retard depuis ${_dateFmt.format(nextDue)}'
-                                : 'Prochain paiement: ${_dateFmt.format(nextDue)}',
+                                ? '${l10n.overdue} ${_dateFmt.format(nextDue)}'
+                                : '${l10n.nextPaymentDue}: ${_dateFmt.format(nextDue)}',
                             style: TextStyle(
                               color: isPaymentOverdue ? Colors.red : Colors.black87,
                               fontWeight: FontWeight.w600,
@@ -132,18 +132,18 @@ class ClientDetailScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Historique des paiements',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              Text(
+                l10n.paymentHistory,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               if (payments.isEmpty)
-                const Padding(
-                  padding: EdgeInsets.only(top: 12),
+                Padding(
+                  padding: const EdgeInsets.only(top: 12),
                   child: Center(
                     child: Text(
-                      'Aucun paiement enregistré',
-                      style: TextStyle(color: Colors.grey),
+                      l10n.noPayments,
+                      style: const TextStyle(color: Colors.grey),
                     ),
                   ),
                 ),
@@ -152,11 +152,11 @@ class ClientDetailScreen extends ConsumerWidget {
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('Erreur: $e')),
+        error: (e, _) => Center(child: Text('${l10n.error}: $e')),
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
-        label: const Text('Paiement'),
+        label: Text(l10n.addPayment),
         onPressed: () => Navigator.push(
           context,
           MaterialPageRoute(builder: (_) => AddPaymentScreen(client: client)),
@@ -174,6 +174,8 @@ class _PaymentTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
       child: ListTile(
@@ -189,10 +191,10 @@ class _PaymentTile extends ConsumerWidget {
             size: 20,
           ),
         ),
-        title: Text('${payment.amountPaid.toStringAsFixed(0)} DT — ${payment.method.label}'),
+        title: Text('${payment.amountPaid.toStringAsFixed(0)} DT — ${payment.method.localizedLabel(context)}'),
         subtitle: Text(
-          'Payé le ${_dateFmt.format(payment.paymentDate)}\n'
-          'Période: ${_dateFmt.format(payment.periodStart)} → ${_dateFmt.format(payment.periodEnd)}',
+          '${l10n.paymentDate}: ${_dateFmt.format(payment.paymentDate)}\n'
+          '${_dateFmt.format(payment.periodStart)} → ${_dateFmt.format(payment.periodEnd)}',
         ),
         isThreeLine: true,
         trailing: IconButton(
@@ -203,8 +205,8 @@ class _PaymentTile extends ConsumerWidget {
             color: payment.quittanceGiven ? Colors.green : Colors.orange,
           ),
           tooltip: payment.quittanceGiven
-              ? 'Quittance donnée'
-              : 'Marquer quittance donnée',
+              ? l10n.quittanceGiven
+              : l10n.quittancePending,
           onPressed: payment.quittanceGiven
               ? null
               : () async {

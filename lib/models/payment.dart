@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 
 enum PaymentMethod { cash, postal, card, check }
 
@@ -14,6 +15,20 @@ extension PaymentMethodX on PaymentMethod {
         return 'Carte bancaire';
       case PaymentMethod.check:
         return 'Chèque';
+    }
+  }
+
+  String localizedLabel(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (this) {
+      case PaymentMethod.cash:
+        return l10n.cash;
+      case PaymentMethod.postal:
+        return l10n.postal;
+      case PaymentMethod.card:
+        return l10n.card;
+      case PaymentMethod.check:
+        return l10n.check;
     }
   }
 

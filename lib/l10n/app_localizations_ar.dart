@@ -12,6 +12,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appTitle => 'PayCheck';
 
   @override
+  String get appSubtitle => 'إدارة العقود والإيصالات';
+
+  @override
   String get clients => 'العملاء';
 
   @override
@@ -27,10 +30,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get password => 'كلمة المرور';
 
   @override
+  String get confirmPassword => 'تأكيد كلمة المرور';
+
+  @override
   String get signIn => 'تسجيل الدخول';
 
   @override
   String get signUp => 'إنشاء حساب';
+
+  @override
+  String get createAccount => 'إنشاء حساب جديد';
 
   @override
   String get orContinueWith => 'أو المتابعة باستخدام';
@@ -59,6 +68,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get cancel => 'إلغاء';
+
+  @override
+  String get close => 'إغلاق';
 
   @override
   String get emailSentSuccess =>
@@ -114,6 +126,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get editClient => 'تعديل العميل';
 
   @override
+  String get clientDetails => 'تفاصيل العميل';
+
+  @override
   String get fullName => 'الاسم الكامل';
 
   @override
@@ -147,6 +162,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get contractStartDate => 'تاريخ بدء العقد';
 
   @override
+  String get nextPaymentDue => 'الموعد القادم للدفع';
+
+  @override
   String get active => 'نشط';
 
   @override
@@ -171,7 +189,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addPayment => 'إضافة دفعة';
 
   @override
-  String get amountPaid => 'المبلغ المدفوع';
+  String get recordPayment => 'تسجيل دفعة';
+
+  @override
+  String get paymentHistory => 'سجل المدفوعات';
+
+  @override
+  String get viewHistory => 'عرض السجل';
+
+  @override
+  String get amountPaid => 'المبلغ المدفوع (DT)';
 
   @override
   String get paymentDate => 'تاريخ الدفع';
@@ -180,7 +207,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get periodStart => 'بداية الفترة';
 
   @override
+  String get periodCoveredFrom => 'بداية الفترة المشمولة';
+
+  @override
   String get periodEnd => 'نهاية الفترة';
+
+  @override
+  String periodUntil(String date) {
+    return 'حتى $date';
+  }
 
   @override
   String get paymentMethod => 'طريقة الدفع';
@@ -201,10 +236,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get quittanceGiven => 'تم تسليم الوصل';
 
   @override
+  String get quittanceRemote => 'دفع عن بُعد — تذكر إرسال الوصل';
+
+  @override
   String get quittanceDate => 'تاريخ الوصل';
 
   @override
   String get paymentAdded => 'تم تسجيل الدفعة بنجاح!';
+
+  @override
+  String get savingPayment => 'جاري الحفظ...';
+
+  @override
+  String get savePayment => 'حفظ الدفعة';
+
+  @override
+  String get invalidAmount => 'مبلغ غير صالح';
+
+  @override
+  String get enterValidAmount => 'أدخل مبلغاً صالحاً (> 0)';
 
   @override
   String get totalRevenue => 'إجمالي الإيرادات';
@@ -219,7 +269,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get pendingQuittances => 'إيصالات قيد الانتظار';
 
   @override
-  String get viewAllOverdue => 'عرض كافة المتأخرات';
+  String allOverdueClients(int count) {
+    return 'العملاء المتأخرون ($count)';
+  }
+
+  @override
+  String get contract => 'عقد';
+
+  @override
+  String viewAllOverdue(int count) {
+    return 'عرض كافة المتأخرات (+$count)';
+  }
 
   @override
   String get noClients => 'لا يوجد عملاء حالياً. أضف عميلك الأول!';
@@ -247,5 +307,60 @@ class AppLocalizationsAr extends AppLocalizations {
       'لدواعي أمنية، يرجى إعادة تسجيل الدخول قبل حذف الحساب.';
 
   @override
+  String get invalidEmail => 'البريد الإلكتروني غير صالح';
+
+  @override
+  String get minPasswordLength => '6 أحرف على الأقل';
+
+  @override
+  String get passwordsDoNotMatch => 'كلمات المرور غير متطابقة';
+
+  @override
+  String get requiredField => 'حقل مطلوب';
+
+  @override
+  String get infoAndLegal => 'المعلومات والخصوصية';
+
+  @override
+  String get account => 'الحساب';
+
+  @override
+  String get loginFailed => 'فشل تسجيل الدخول';
+
+  @override
+  String get googleSignInFailed => 'فشل الدخول بواسطة جوجل';
+
+  @override
   String get error => 'خطأ';
+
+  @override
+  String get collectedThisMonth => 'المحصّل هذا الشهر';
+
+  @override
+  String vsLastMonth(String pct) {
+    return '$pct% مقارنة بالشهر الماضي';
+  }
+
+  @override
+  String paymentsCount(int count) {
+    return '$count دفعة';
+  }
+
+  @override
+  String get overdueTitle => 'العملاء المتأخرون';
+
+  @override
+  String get distributionByMethod => 'التوزيع حسب طريقة الدفع';
+
+  @override
+  String get dueSoon => 'استحقاقات (7 أيام)';
+
+  @override
+  String get historyTitle => 'سجل المدفوعات';
+
+  @override
+  String get history => 'السجل';
+
+  @override
+  String get noPaymentsHistory => 'لا توجد مدفوعات مسجلة';
 }

@@ -1,6 +1,7 @@
 // screens/dashboard_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../l10n/app_localizations.dart';
 import '../models/client.dart';
 import '../models/payment.dart';
 import '../providers/dashboard_providers.dart';
@@ -23,6 +24,7 @@ class DashboardScreen extends ConsumerWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
+        final l10n = AppLocalizations.of(context)!;
         return DraggableScrollableSheet(
           initialChildSize: 0.7,
           minChildSize: 0.4,
@@ -37,7 +39,7 @@ class DashboardScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Clients en retard (${overdueClients.length})',
+                        l10n.allOverdueClients(overdueClients.length),
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -78,7 +80,7 @@ class DashboardScreen extends ConsumerWidget {
                             style: const TextStyle(fontWeight: FontWeight.w600),
                           ),
                           subtitle: Text(
-                            'Contrat: ${c.contractNumber} · ${c.paymentPeriod.label}',
+                            '${l10n.contract}: ${c.contractNumber} · ${c.paymentPeriod.localizedLabel(context)}',
                           ),
                           trailing: Text(
                             '${c.amountDue.toStringAsFixed(0)} DT',
@@ -112,15 +114,16 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final dashAsync = ref.watch(dashboardProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tableau de bord'),
+        title: Text(l10n.dashboard),
         actions: [
           IconButton(
             icon: const Icon(Icons.history_rounded),
-            tooltip: 'Historique',
+            tooltip: l10n.history,
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const PaymentHistoryScreen()),
@@ -147,26 +150,26 @@ class DashboardScreen extends ConsumerWidget {
               children: [
                 _MiniKpi(
                   icon: Icons.people_outline_rounded,
-                  label: 'Clients actifs',
+                  label: l10n.activeClients,
                   value: '${data.totalActiveClients}',
                   color: AppColors.primary,
                 ),
                 _MiniKpi(
                   icon: Icons.warning_amber_rounded,
-                  label: 'En retard',
+                  label: l10n.overdueClients,
                   value: '${data.overdueCount}',
-                  sub: '${data.totalOverdueAmount.toStringAsFixed(0)} DT dus',
+                  sub: '${data.totalOverdueAmount.toStringAsFixed(0)} DT',
                   color: AppColors.danger,
                 ),
                 _MiniKpi(
                   icon: Icons.receipt_long_rounded,
-                  label: 'Quittances en attente',
+                  label: l10n.pendingQuittances,
                   value: '${data.pendingQuittanceCount}',
                   color: AppColors.warning,
                 ),
                 _MiniKpi(
                   icon: Icons.event_available_rounded,
-                  label: 'Échéances (7j)',
+                  label: l10n.dueSoon,
                   value: '${data.dueSoon.length}',
                   color: AppColors.primary,
                 ),
@@ -175,7 +178,7 @@ class DashboardScreen extends ConsumerWidget {
 
             const SizedBox(height: 24),
             Text(
-              'Répartition par méthode',
+              l10n.distributionByMethod,
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 12),
@@ -206,7 +209,7 @@ class DashboardScreen extends ConsumerWidget {
                                   ),
                                   const SizedBox(width: 6),
                                   Text(
-                                    e.key.label,
+                                    e.key.localizedLabel(context),
                                     style: Theme.of(
                                       context,
                                     ).textTheme.bodyMedium,
@@ -245,10 +248,10 @@ class DashboardScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Clients en retard',
+                    l10n.overdueTitle,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  StatusBadge.overdue(),
+                  StatusBadge.overdue(l10n),
                 ],
               ),
               const SizedBox(height: 12),
@@ -278,7 +281,7 @@ class DashboardScreen extends ConsumerWidget {
                           c.fullName,
                           style: const TextStyle(fontWeight: FontWeight.w600),
                         ),
-                        subtitle: Text('Contrat: ${c.contractNumber}'),
+                        subtitle: Text('${l10n.contract}: ${c.contractNumber}'),
                         trailing: Text(
                           '${c.amountDue.toStringAsFixed(0)} DT',
                           style: const TextStyle(
@@ -303,7 +306,7 @@ class DashboardScreen extends ConsumerWidget {
                         _showAllOverdueDialog(context, data.overdueClients),
                     icon: const Icon(Icons.arrow_forward_rounded, size: 16),
                     label: Text(
-                      'Voir tous les retards (+${data.overdueClients.length - 5})',
+                      l10n.viewAllOverdue(data.overdueClients.length - 5),
                     ),
                   ),
                 ),
@@ -312,8 +315,8 @@ class DashboardScreen extends ConsumerWidget {
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) {
-          debugPrint('Erreur: $e');
-          return Center(child: Text('Erreur: $e'));
+          debugPrint('Error: $e');
+          return Center(child: Text('${AppLocalizations.of(context)!.error}: $e'));
         },
       ),
     );
@@ -326,6 +329,7 @@ class _RevenueHeroCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final up = data.monthOverMonthPct >= 0;
     return Container(
       width: double.infinity,
@@ -337,9 +341,9 @@ class _RevenueHeroCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Encaissé ce mois',
-            style: TextStyle(color: Colors.white70, fontSize: 13),
+          Text(
+            l10n.collectedThisMonth,
+            style: const TextStyle(color: Colors.white70, fontSize: 13),
           ),
           const SizedBox(height: 8),
           Text(
@@ -371,7 +375,7 @@ class _RevenueHeroCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      '${data.monthOverMonthPct.abs().toStringAsFixed(0)}% vs mois dernier',
+                      l10n.vsLastMonth(data.monthOverMonthPct.abs().toStringAsFixed(0)),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 12,
@@ -383,7 +387,7 @@ class _RevenueHeroCard extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                '${data.paymentsCountThisMonth} paiements',
+                l10n.paymentsCount(data.paymentsCountThisMonth),
                 style: const TextStyle(color: Colors.white70, fontSize: 12),
               ),
             ],

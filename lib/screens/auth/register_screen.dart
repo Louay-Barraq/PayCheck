@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../l10n/app_localizations.dart';
 import '../../providers/auth_providers.dart';
 import '../../theme/app_theme.dart';
 
@@ -31,9 +32,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   }
 
   Future<void> _register() async {
+    final l10n = AppLocalizations.of(context)!;
     if (!_formKey.currentState!.validate()) return;
     if (_passwordCtrl.text != _confirmPasswordCtrl.text) {
-      setState(() => _errorMessage = 'Les mots de passe ne correspondent pas');
+      setState(() => _errorMessage = l10n.passwordsDoNotMatch);
       return;
     }
 
@@ -50,7 +52,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       );
       if (mounted) Navigator.pop(context); // Go back to login/main gate
     } on FirebaseAuthException catch (e) {
-      setState(() => _errorMessage = e.message ?? "Échec de l'inscription");
+      setState(() => _errorMessage = e.message ?? l10n.error);
     } finally {
       if (mounted) setState(() => _loading = false);
     }
@@ -58,8 +60,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Créer un compte')),
+      appBar: AppBar(title: Text(l10n.createAccount)),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -69,18 +73,18 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 12),
-                const Text(
-                  'Inscription',
-                  style: TextStyle(
+                Text(
+                  l10n.signUp,
+                  style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                     color: AppColors.primary,
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
-                  'Créez un compte pour gérer vos clients et vos quittances en toute sécurité.',
-                  style: TextStyle(color: AppColors.textSecondary),
+                Text(
+                  l10n.appSubtitle,
+                  style: const TextStyle(color: AppColors.textSecondary),
                 ),
                 const SizedBox(height: 32),
 
@@ -104,19 +108,19 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 TextFormField(
                   controller: _emailCtrl,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    labelText: 'Adresse Email',
-                    prefixIcon: Icon(Icons.email_outlined),
+                  decoration: InputDecoration(
+                    labelText: l10n.email,
+                    prefixIcon: const Icon(Icons.email_outlined),
                   ),
                   validator: (v) =>
-                      (v == null || !v.contains('@')) ? 'Email invalide' : null,
+                      (v == null || !v.contains('@')) ? l10n.invalidEmail : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _passwordCtrl,
                   obscureText: _obscurePassword,
                   decoration: InputDecoration(
-                    labelText: 'Mot de passe',
+                    labelText: l10n.password,
                     prefixIcon: const Icon(Icons.lock_outline),
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -128,14 +132,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     ),
                   ),
                   validator: (v) =>
-                      (v == null || v.length < 6) ? 'Min 6 caractères' : null,
+                      (v == null || v.length < 6) ? l10n.minPasswordLength : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _confirmPasswordCtrl,
                   obscureText: _obscureConfirmPassword,
                   decoration: InputDecoration(
-                    labelText: 'Confirmer le mot de passe',
+                    labelText: l10n.confirmPassword,
                     prefixIcon: const Icon(Icons.lock_clock_outlined),
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -148,7 +152,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     ),
                   ),
                   validator: (v) =>
-                      (v == null || v.isEmpty) ? 'Champ requis' : null,
+                      (v == null || v.isEmpty) ? l10n.requiredField : null,
                 ),
                 const SizedBox(height: 28),
 
@@ -163,7 +167,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                             color: Colors.white,
                           ),
                         )
-                      : const Text('S\'inscrire'),
+                      : Text(l10n.signUp),
                 ),
               ],
             ),

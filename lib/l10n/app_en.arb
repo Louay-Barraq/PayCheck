@@ -1,13 +1,16 @@
 {
   "@@locale": "en",
   "appTitle": "PayCheck",
+  "appSubtitle": "Contract & Receipt Management",
   "clients": "Clients",
   "dashboard": "Dashboard",
   "settings": "Settings",
   "email": "Email Address",
   "password": "Password",
+  "confirmPassword": "Confirm Password",
   "signIn": "Sign In",
   "signUp": "Sign Up",
+  "createAccount": "Create Account",
   "orContinueWith": "OR CONTINUE WITH",
   "signInWithGoogle": "Sign In with Google",
   "dontHaveAccount": "Don't have an account?",
@@ -17,6 +20,7 @@
   "enterEmailToReset": "Enter your email address to receive a password reset link.",
   "send": "Send",
   "cancel": "Cancel",
+  "close": "Close",
   "emailSentSuccess": "A reset link has been sent to your email!",
   "logout": "Log Out",
   "logoutConfirmation": "Are you sure you want to log out?",
@@ -34,6 +38,7 @@
   "search": "Search...",
   "addClient": "Add Client",
   "editClient": "Edit Client",
+  "clientDetails": "Client Details",
   "fullName": "Full Name",
   "phone": "Phone Number",
   "address": "Address",
@@ -45,6 +50,7 @@
   "annual": "Annual",
   "amountDue": "Amount Due",
   "contractStartDate": "Contract Start Date",
+  "nextPaymentDue": "Next Payment Due",
   "active": "Active",
   "inactive": "Inactive",
   "archive": "Archive",
@@ -53,23 +59,50 @@
   "clientAdded": "Client added successfully!",
   "clientUpdated": "Client updated successfully!",
   "addPayment": "Add Payment",
-  "amountPaid": "Amount Paid",
+  "recordPayment": "Record Payment",
+  "paymentHistory": "Payment History",
+  "viewHistory": "View History",
+  "amountPaid": "Amount Paid (DT)",
   "paymentDate": "Payment Date",
   "periodStart": "Period Start",
+  "periodCoveredFrom": "Period covered start",
   "periodEnd": "Period End",
+  "periodUntil": "Until {date}",
+  "@periodUntil": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
   "paymentMethod": "Payment Method",
   "cash": "Cash",
   "card": "Bank Card",
   "check": "Check",
   "postal": "Postal Transfer",
   "quittanceGiven": "Receipt (Quittance) Given",
+  "quittanceRemote": "Remote payment — remember to send the receipt",
   "quittanceDate": "Receipt Date",
   "paymentAdded": "Payment recorded successfully!",
+  "savingPayment": "Saving...",
+  "savePayment": "Save Payment",
+  "invalidAmount": "Invalid amount",
+  "enterValidAmount": "Enter a valid amount (> 0)",
   "totalRevenue": "Total Revenue",
   "activeClients": "Active Clients",
   "overdueClients": "Overdue Clients",
   "pendingQuittances": "Pending Receipts",
-  "viewAllOverdue": "View All Overdues",
+  "allOverdueClients": "All Overdue Clients ({count})",
+  "@allOverdueClients": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "contract": "Contract",
+  "viewAllOverdue": "See all overdue (+{count})",
+  "@viewAllOverdue": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "noClients": "No clients yet. Add your first client!",
   "noPayments": "No payments recorded yet.",
   "overdue": "Overdue",
@@ -78,5 +111,32 @@
   "syncOnline": "Online — Synced",
   "syncOffline": "Offline — Saved Locally",
   "requiresRecentLogin": "For security reasons, please log in again before deleting your account.",
-  "error": "Error"
+  "invalidEmail": "Invalid Email",
+  "minPasswordLength": "At least 6 characters",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "requiredField": "Required field",
+  "infoAndLegal": "Information & Legal",
+  "account": "Account",
+  "loginFailed": "Sign in failed",
+  "googleSignInFailed": "Google Sign-In failed",
+  "error": "Error",
+  "collectedThisMonth": "Collected this month",
+  "vsLastMonth": "{pct}% vs last month",
+  "@vsLastMonth": {
+    "placeholders": {
+      "pct": { "type": "String" }
+    }
+  },
+  "paymentsCount": "{count} payments",
+  "@paymentsCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "overdueTitle": "Overdue Clients",
+  "distributionByMethod": "Distribution by Payment Method",
+  "dueSoon": "Due Soon (7d)",
+  "historyTitle": "Payment History",
+  "history": "History",
+  "noPaymentsHistory": "No payments recorded"
 }

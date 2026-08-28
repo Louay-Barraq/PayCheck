@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
+import '../l10n/app_localizations.dart';
 import '../models/client.dart';
 import '../providers/client_providers.dart';
 import '../theme/app_theme.dart';
@@ -37,6 +38,7 @@ class _AddClientScreenState extends ConsumerState<AddClientScreen> {
   }
 
   Future<void> _save() async {
+    final l10n = AppLocalizations.of(context)!;
     if (!_formKey.currentState!.validate()) return;
     setState(() => _saving = true);
     final messenger = ScaffoldMessenger.of(context);
@@ -58,14 +60,14 @@ class _AddClientScreenState extends ConsumerState<AddClientScreen> {
       await fs.addClient(client);
       if (mounted) {
         messenger.showSnackBar(
-          const SnackBar(content: Text('Client enregistré avec succès')),
+          SnackBar(content: Text(l10n.clientAdded)),
         );
         navigator.pop();
       }
     } catch (e) {
       if (mounted) {
         messenger.showSnackBar(
-          SnackBar(content: Text('Erreur lors de l\'enregistrement: $e')),
+          SnackBar(content: Text('${l10n.error}: $e')),
         );
       }
     } finally {
@@ -75,14 +77,16 @@ class _AddClientScreenState extends ConsumerState<AddClientScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Nouveau client')),
+      appBar: AppBar(title: Text(l10n.addClient)),
       body: Form(
         key: _formKey,
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
           children: [
-            const _SectionLabel('Informations personnelles'),
+            _SectionLabel(l10n.clientDetails),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -90,27 +94,27 @@ class _AddClientScreenState extends ConsumerState<AddClientScreen> {
                   children: [
                     TextFormField(
                       controller: _nameCtrl,
-                      decoration: const InputDecoration(
-                        labelText: 'Nom complet',
-                        prefixIcon: Icon(Icons.person_outline_rounded),
+                      decoration: InputDecoration(
+                        labelText: l10n.fullName,
+                        prefixIcon: const Icon(Icons.person_outline_rounded),
                       ),
-                      validator: (v) => (v == null || v.trim().isEmpty) ? 'Champ requis' : null,
+                      validator: (v) => (v == null || v.trim().isEmpty) ? l10n.requiredField : null,
                     ),
                     const SizedBox(height: 14),
                     TextFormField(
                       controller: _phoneCtrl,
-                      decoration: const InputDecoration(
-                        labelText: 'Téléphone (optionnel)',
-                        prefixIcon: Icon(Icons.phone_outlined),
+                      decoration: InputDecoration(
+                        labelText: l10n.phone,
+                        prefixIcon: const Icon(Icons.phone_outlined),
                       ),
                       keyboardType: TextInputType.phone,
                     ),
                     const SizedBox(height: 14),
                     TextFormField(
                       controller: _addressCtrl,
-                      decoration: const InputDecoration(
-                        labelText: 'Adresse (optionnel)',
-                        prefixIcon: Icon(Icons.location_on_outlined),
+                      decoration: InputDecoration(
+                        labelText: l10n.address,
+                        prefixIcon: const Icon(Icons.location_on_outlined),
                       ),
                     ),
                   ],
@@ -119,7 +123,7 @@ class _AddClientScreenState extends ConsumerState<AddClientScreen> {
             ),
 
             const SizedBox(height: 20),
-            const _SectionLabel('Détails du contrat'),
+            _SectionLabel(l10n.paymentPeriod),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -127,29 +131,29 @@ class _AddClientScreenState extends ConsumerState<AddClientScreen> {
                   children: [
                     TextFormField(
                       controller: _contractCtrl,
-                      decoration: const InputDecoration(
-                        labelText: 'N° de contrat',
-                        prefixIcon: Icon(Icons.badge_outlined),
+                      decoration: InputDecoration(
+                        labelText: l10n.contractNumber,
+                        prefixIcon: const Icon(Icons.badge_outlined),
                       ),
-                      validator: (v) => (v == null || v.trim().isEmpty) ? 'Champ requis' : null,
+                      validator: (v) => (v == null || v.trim().isEmpty) ? l10n.requiredField : null,
                     ),
                     const SizedBox(height: 14),
                     TextFormField(
                       controller: _amountCtrl,
-                      decoration: const InputDecoration(
-                        labelText: 'Montant dû par période (DT)',
-                        prefixIcon: Icon(Icons.payments_outlined),
+                      decoration: InputDecoration(
+                        labelText: '${l10n.amountDue} (DT)',
+                        prefixIcon: const Icon(Icons.payments_outlined),
                       ),
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       validator: (v) {
                         final d = double.tryParse(v ?? '');
-                        return (d == null || d <= 0) ? 'Montant invalide' : null;
+                        return (d == null || d <= 0) ? l10n.enterValidAmount : null;
                       },
                     ),
                     const SizedBox(height: 16),
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('Périodicité', style: Theme.of(context).textTheme.bodyMedium),
+                      child: Text(l10n.paymentPeriod, style: Theme.of(context).textTheme.bodyMedium),
                     ),
                     const SizedBox(height: 8),
                     Wrap(
@@ -158,7 +162,7 @@ class _AddClientScreenState extends ConsumerState<AddClientScreen> {
                       children: PaymentPeriod.values.map((p) {
                         final selected = p == _period;
                         return ChoiceChip(
-                          label: Text(p.label),
+                          label: Text(p.localizedLabel(context)),
                           selected: selected,
                           onSelected: (_) => setState(() => _period = p),
                           selectedColor: AppColors.primaryLight,
@@ -173,7 +177,7 @@ class _AddClientScreenState extends ConsumerState<AddClientScreen> {
                     ),
                     const SizedBox(height: 16),
                     _DatePickerTile(
-                      label: 'Date de début du contrat',
+                      label: l10n.contractStartDate,
                       date: _startDate,
                       formattedDate: _dateFmt.format(_startDate),
                       onTap: () async {
@@ -200,7 +204,7 @@ class _AddClientScreenState extends ConsumerState<AddClientScreen> {
                       child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                     )
                   : const Icon(Icons.check_rounded),
-              label: Text(_saving ? 'Enregistrement...' : 'Enregistrer le client'),
+              label: Text(l10n.save),
             ),
           ],
         ),

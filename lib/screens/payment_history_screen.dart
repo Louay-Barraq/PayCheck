@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../l10n/app_localizations.dart';
 import '../models/payment.dart';
 import '../providers/history_providers.dart';
 import '../theme/app_theme.dart';
@@ -10,27 +11,28 @@ import '../widgets/empty_state.dart';
 class PaymentHistoryScreen extends ConsumerWidget {
   const PaymentHistoryScreen({super.key});
 
-  static final _dateFmt = DateFormat('dd MMMM yyyy', 'fr_FR');
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final locale = Localizations.localeOf(context).toLanguageTag();
+    final dateFmt = DateFormat('dd MMMM yyyy', locale);
     final historyAsync = ref.watch(recentPaymentsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Historique des paiements')),
+      appBar: AppBar(title: Text(l10n.historyTitle)),
       body: historyAsync.when(
         data: (items) {
           if (items.isEmpty) {
-            return const EmptyState(
+            return EmptyState(
               icon: Icons.history_rounded,
-              message: 'Aucun paiement enregistré',
+              message: l10n.noPaymentsHistory,
             );
           }
 
           // Group by date (day) for a clean chronological feed
           final Map<String, List<PaymentWithClient>> grouped = {};
           for (final item in items) {
-            final key = _dateFmt.format(item.payment.paymentDate);
+            final key = dateFmt.format(item.payment.paymentDate);
             grouped.putIfAbsent(key, () => []).add(item);
           }
 
@@ -58,7 +60,7 @@ class PaymentHistoryScreen extends ConsumerWidget {
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('Erreur: $e')),
+        error: (e, _) => Center(child: Text('${l10n.error}: $e')),
       ),
     );
   }
@@ -82,7 +84,7 @@ class _HistoryTile extends StatelessWidget {
           child: Icon(p.method.icon, color: AppColors.primary, size: 20),
         ),
         title: Text(item.clientName, style: const TextStyle(fontWeight: FontWeight.w600)),
-        subtitle: Text('N° ${item.contractNumber} · ${p.method.label}'),
+        subtitle: Text('N° ${item.contractNumber} · ${p.method.localizedLabel(context)}'),
         trailing: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,

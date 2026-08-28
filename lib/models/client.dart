@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 
 enum PaymentPeriod { monthly, quarterly, semester, annual }
 
@@ -13,6 +15,20 @@ extension PaymentPeriodX on PaymentPeriod {
         return 'Semestriel';
       case PaymentPeriod.annual:
         return 'Annuel';
+    }
+  }
+
+  String localizedLabel(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (this) {
+      case PaymentPeriod.monthly:
+        return l10n.monthly;
+      case PaymentPeriod.quarterly:
+        return l10n.quarterly;
+      case PaymentPeriod.semester:
+        return l10n.semester;
+      case PaymentPeriod.annual:
+        return l10n.annual;
     }
   }
 

@@ -1,5 +1,6 @@
 // widgets/client_list_tile.dart
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../models/client.dart';
 import '../theme/app_theme.dart';
 import 'status_badge.dart';
@@ -24,27 +25,16 @@ class ClientListTile extends StatelessWidget {
     return client.fullName.isNotEmpty ? client.fullName[0].toUpperCase() : '?';
   }
 
-  Widget _buildStatusBadge() {
-    if (!client.isActive) {
-      return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        decoration: BoxDecoration(
-          color: Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: const Text(
-          'Inactif',
-          style: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w600),
-        ),
-      );
-    }
-    if (isOverdue) return StatusBadge.overdue();
-    if (hasPendingQuittance) return StatusBadge.quittancePending();
-    return StatusBadge.upToDate();
+  Widget _buildStatusBadge(AppLocalizations l10n) {
+    if (!client.isActive) return StatusBadge.inactive(l10n);
+    if (isOverdue) return StatusBadge.overdue(l10n);
+    if (hasPendingQuittance) return StatusBadge.quittancePending(l10n);
+    return StatusBadge.upToDate(l10n);
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       child: Material(
@@ -75,10 +65,10 @@ class ClientListTile extends StatelessWidget {
                     children: [
                       Text(client.fullName, style: Theme.of(context).textTheme.titleMedium),
                       const SizedBox(height: 3),
-                      Text('N° ${client.contractNumber} · ${client.paymentPeriod.label}',
+                      Text('N° ${client.contractNumber} · ${client.paymentPeriod.localizedLabel(context)}',
                           style: Theme.of(context).textTheme.bodySmall),
                       const SizedBox(height: 6),
-                      _buildStatusBadge(),
+                      _buildStatusBadge(l10n),
                     ],
                   ),
                 ),

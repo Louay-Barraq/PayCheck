@@ -244,7 +244,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 4, bottom: 8),
                   child: Text(
-                    'Info & Legal',
+                    l10n.infoAndLegal,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 13,
@@ -281,7 +281,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 4, bottom: 8),
                   child: Text(
-                    user != null ? 'Account' : '',
+                    user != null ? l10n.account : '',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 13,

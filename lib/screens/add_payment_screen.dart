@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
+import '../l10n/app_localizations.dart';
 import '../models/client.dart';
 import '../models/payment.dart';
 import '../providers/client_providers.dart';
@@ -44,6 +45,7 @@ class _AddPaymentScreenState extends ConsumerState<AddPaymentScreen> {
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _saving = true);
+    final l10n = AppLocalizations.of(context)!;
     final messenger = ScaffoldMessenger.of(context);
     final navigator = Navigator.of(context);
 
@@ -51,7 +53,7 @@ class _AddPaymentScreenState extends ConsumerState<AddPaymentScreen> {
       final amount = double.tryParse(_amountCtrl.text.trim());
       if (amount == null || amount <= 0) {
         messenger.showSnackBar(
-          const SnackBar(content: Text('Veuillez entrer un montant valide supérieur à 0')),
+          SnackBar(content: Text(l10n.enterValidAmount)),
         );
         return;
       }
@@ -72,14 +74,14 @@ class _AddPaymentScreenState extends ConsumerState<AddPaymentScreen> {
       await fs.addPayment(payment);
       if (mounted) {
         messenger.showSnackBar(
-          const SnackBar(content: Text('Paiement enregistré avec succès')),
+          SnackBar(content: Text(l10n.paymentAdded)),
         );
         navigator.pop();
       }
     } catch (e) {
       if (mounted) {
         messenger.showSnackBar(
-          SnackBar(content: Text('Erreur lors de l\'enregistrement: $e')),
+          SnackBar(content: Text('${AppLocalizations.of(context)!.error}: $e')),
         );
       }
     } finally {
@@ -107,8 +109,9 @@ class _AddPaymentScreenState extends ConsumerState<AddPaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text('Nouveau paiement')),
+      appBar: AppBar(title: Text(l10n.addPayment)),
       body: Form(
         key: _formKey,
         child: ListView(
@@ -134,7 +137,7 @@ class _AddPaymentScreenState extends ConsumerState<AddPaymentScreen> {
                       children: [
                         Text(widget.client.fullName,
                             style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
-                        Text('N° ${widget.client.contractNumber} · ${widget.client.paymentPeriod.label}',
+                        Text('N° ${widget.client.contractNumber} · ${widget.client.paymentPeriod.localizedLabel(context)}',
                             style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
                       ],
                     ),
@@ -151,29 +154,29 @@ class _AddPaymentScreenState extends ConsumerState<AddPaymentScreen> {
                   children: [
                     TextFormField(
                       controller: _amountCtrl,
-                      decoration: const InputDecoration(
-                        labelText: 'Montant payé (DT)',
-                        prefixIcon: Icon(Icons.payments_outlined),
+                      decoration: InputDecoration(
+                        labelText: l10n.amountPaid,
+                        prefixIcon: const Icon(Icons.payments_outlined),
                       ),
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       validator: (v) {
                         final d = double.tryParse(v?.trim() ?? '');
-                        return (d == null || d <= 0) ? 'Montant invalide' : null;
+                        return (d == null || d <= 0) ? l10n.invalidAmount : null;
                       },
                     ),
                     const SizedBox(height: 14),
                     _DateRow(
-                      label: 'Date de paiement',
+                      label: l10n.paymentDate,
                       date: _paymentDate,
                       formattedDate: _dateFmt.format(_paymentDate),
                       onTap: () => _pickDate(true),
                     ),
                     const SizedBox(height: 10),
                     _DateRow(
-                      label: 'Début de la période couverte',
+                      label: l10n.periodCoveredFrom,
                       date: _periodStart,
                       formattedDate: _dateFmt.format(_periodStart),
-                      subLabel: 'Jusqu\'au ${_dateFmt.format(_periodEnd)}',
+                      subLabel: l10n.periodUntil(_dateFmt.format(_periodEnd)),
                       onTap: () => _pickDate(false),
                     ),
                   ],
@@ -182,10 +185,10 @@ class _AddPaymentScreenState extends ConsumerState<AddPaymentScreen> {
             ),
 
             const SizedBox(height: 20),
-            const Padding(
-              padding: EdgeInsets.only(bottom: 8, left: 4),
-              child: Text('Méthode de paiement',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.textSecondary)),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8, left: 4),
+              child: Text(l10n.paymentMethod,
+                  style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.textSecondary)),
             ),
             GridView.count(
               crossAxisCount: 2,
@@ -213,7 +216,7 @@ class _AddPaymentScreenState extends ConsumerState<AddPaymentScreen> {
                       children: [
                         Icon(m.icon, size: 18, color: selected ? AppColors.primary : AppColors.textSecondary),
                         const SizedBox(width: 8),
-                        Text(m.label,
+                        Text(m.localizedLabel(context),
                             style: TextStyle(
                               color: selected ? AppColors.primary : AppColors.textPrimary,
                               fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
@@ -230,10 +233,10 @@ class _AddPaymentScreenState extends ConsumerState<AddPaymentScreen> {
             Card(
               color: _method.isRemote ? AppColors.warningLight : AppColors.surface,
               child: SwitchListTile(
-                title: const Text('Quittance donnée', style: TextStyle(fontWeight: FontWeight.w600)),
+                title: Text(l10n.quittanceGiven, style: const TextStyle(fontWeight: FontWeight.w600)),
                 subtitle: _method.isRemote
-                    ? const Text('Paiement à distance — pensez à faire parvenir la quittance',
-                        style: TextStyle(fontSize: 12))
+                    ? Text(l10n.quittanceRemote,
+                        style: const TextStyle(fontSize: 12))
                     : null,
                 value: _quittanceGiven,
                 activeThumbColor: AppColors.primary,
@@ -250,7 +253,7 @@ class _AddPaymentScreenState extends ConsumerState<AddPaymentScreen> {
                       child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                     )
                   : const Icon(Icons.check_rounded),
-              label: Text(_saving ? 'Enregistrement...' : 'Enregistrer le paiement'),
+              label: Text(_saving ? l10n.savingPayment : l10n.savePayment),
             ),
           ],
         ),

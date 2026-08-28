@@ -108,6 +108,12 @@ abstract class AppLocalizations {
   /// **'PayCheck'**
   String get appTitle;
 
+  /// No description provided for @appSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Contract & Receipt Management'**
+  String get appSubtitle;
+
   /// No description provided for @clients.
   ///
   /// In en, this message translates to:
@@ -138,6 +144,12 @@ abstract class AppLocalizations {
   /// **'Password'**
   String get password;
 
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPassword;
+
   /// No description provided for @signIn.
   ///
   /// In en, this message translates to:
@@ -149,6 +161,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sign Up'**
   String get signUp;
+
+  /// No description provided for @createAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get createAccount;
 
   /// No description provided for @orContinueWith.
   ///
@@ -203,6 +221,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel'**
   String get cancel;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
 
   /// No description provided for @emailSentSuccess.
   ///
@@ -306,6 +330,12 @@ abstract class AppLocalizations {
   /// **'Edit Client'**
   String get editClient;
 
+  /// No description provided for @clientDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Client Details'**
+  String get clientDetails;
+
   /// No description provided for @fullName.
   ///
   /// In en, this message translates to:
@@ -372,6 +402,12 @@ abstract class AppLocalizations {
   /// **'Contract Start Date'**
   String get contractStartDate;
 
+  /// No description provided for @nextPaymentDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Payment Due'**
+  String get nextPaymentDue;
+
   /// No description provided for @active.
   ///
   /// In en, this message translates to:
@@ -420,10 +456,28 @@ abstract class AppLocalizations {
   /// **'Add Payment'**
   String get addPayment;
 
+  /// No description provided for @recordPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Record Payment'**
+  String get recordPayment;
+
+  /// No description provided for @paymentHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment History'**
+  String get paymentHistory;
+
+  /// No description provided for @viewHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'View History'**
+  String get viewHistory;
+
   /// No description provided for @amountPaid.
   ///
   /// In en, this message translates to:
-  /// **'Amount Paid'**
+  /// **'Amount Paid (DT)'**
   String get amountPaid;
 
   /// No description provided for @paymentDate.
@@ -438,11 +492,23 @@ abstract class AppLocalizations {
   /// **'Period Start'**
   String get periodStart;
 
+  /// No description provided for @periodCoveredFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Period covered start'**
+  String get periodCoveredFrom;
+
   /// No description provided for @periodEnd.
   ///
   /// In en, this message translates to:
   /// **'Period End'**
   String get periodEnd;
+
+  /// No description provided for @periodUntil.
+  ///
+  /// In en, this message translates to:
+  /// **'Until {date}'**
+  String periodUntil(String date);
 
   /// No description provided for @paymentMethod.
   ///
@@ -480,6 +546,12 @@ abstract class AppLocalizations {
   /// **'Receipt (Quittance) Given'**
   String get quittanceGiven;
 
+  /// No description provided for @quittanceRemote.
+  ///
+  /// In en, this message translates to:
+  /// **'Remote payment — remember to send the receipt'**
+  String get quittanceRemote;
+
   /// No description provided for @quittanceDate.
   ///
   /// In en, this message translates to:
@@ -491,6 +563,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Payment recorded successfully!'**
   String get paymentAdded;
+
+  /// No description provided for @savingPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving...'**
+  String get savingPayment;
+
+  /// No description provided for @savePayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Payment'**
+  String get savePayment;
+
+  /// No description provided for @invalidAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid amount'**
+  String get invalidAmount;
+
+  /// No description provided for @enterValidAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid amount (> 0)'**
+  String get enterValidAmount;
 
   /// No description provided for @totalRevenue.
   ///
@@ -516,11 +612,23 @@ abstract class AppLocalizations {
   /// **'Pending Receipts'**
   String get pendingQuittances;
 
+  /// No description provided for @allOverdueClients.
+  ///
+  /// In en, this message translates to:
+  /// **'All Overdue Clients ({count})'**
+  String allOverdueClients(int count);
+
+  /// No description provided for @contract.
+  ///
+  /// In en, this message translates to:
+  /// **'Contract'**
+  String get contract;
+
   /// No description provided for @viewAllOverdue.
   ///
   /// In en, this message translates to:
-  /// **'View All Overdues'**
-  String get viewAllOverdue;
+  /// **'See all overdue (+{count})'**
+  String viewAllOverdue(int count);
 
   /// No description provided for @noClients.
   ///
@@ -570,11 +678,113 @@ abstract class AppLocalizations {
   /// **'For security reasons, please log in again before deleting your account.'**
   String get requiresRecentLogin;
 
+  /// No description provided for @invalidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Email'**
+  String get invalidEmail;
+
+  /// No description provided for @minPasswordLength.
+  ///
+  /// In en, this message translates to:
+  /// **'At least 6 characters'**
+  String get minPasswordLength;
+
+  /// No description provided for @passwordsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsDoNotMatch;
+
+  /// No description provided for @requiredField.
+  ///
+  /// In en, this message translates to:
+  /// **'Required field'**
+  String get requiredField;
+
+  /// No description provided for @infoAndLegal.
+  ///
+  /// In en, this message translates to:
+  /// **'Information & Legal'**
+  String get infoAndLegal;
+
+  /// No description provided for @account.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get account;
+
+  /// No description provided for @loginFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in failed'**
+  String get loginFailed;
+
+  /// No description provided for @googleSignInFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Sign-In failed'**
+  String get googleSignInFailed;
+
   /// No description provided for @error.
   ///
   /// In en, this message translates to:
   /// **'Error'**
   String get error;
+
+  /// No description provided for @collectedThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Collected this month'**
+  String get collectedThisMonth;
+
+  /// No description provided for @vsLastMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'{pct}% vs last month'**
+  String vsLastMonth(String pct);
+
+  /// No description provided for @paymentsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} payments'**
+  String paymentsCount(int count);
+
+  /// No description provided for @overdueTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue Clients'**
+  String get overdueTitle;
+
+  /// No description provided for @distributionByMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Distribution by Payment Method'**
+  String get distributionByMethod;
+
+  /// No description provided for @dueSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Soon (7d)'**
+  String get dueSoon;
+
+  /// No description provided for @historyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment History'**
+  String get historyTitle;
+
+  /// No description provided for @history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get history;
+
+  /// No description provided for @noPaymentsHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No payments recorded'**
+  String get noPaymentsHistory;
 }
 
 class _AppLocalizationsDelegate

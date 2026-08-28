@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../l10n/app_localizations.dart';
 import '../models/payment.dart';
 import '../providers/client_providers.dart';
 import '../providers/payment_providers.dart';
@@ -23,12 +24,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final clientsAsync = ref.watch(clientsProvider);
     final allPaymentsAsync = ref.watch(allPaymentsProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('PayCheck'),
+        title: Text(l10n.appTitle),
         actions: const [
           SyncStatusIcon(),
         ],
@@ -41,7 +43,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               margin: const EdgeInsets.fromLTRB(16, 8, 16, 16),
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: 'Rechercher un client...',
+                  hintText: l10n.search,
                   hintStyle: const TextStyle(color: AppColors.textSecondary),
                   prefixIcon: const Icon(
                     Icons.search_rounded,
@@ -72,9 +74,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           .toList();
 
                 if (filtered.isEmpty) {
-                  return const EmptyState(
+                  return EmptyState(
                     icon: Icons.people_outline,
-                    message: 'Aucun client trouvé',
+                    message: l10n.noClients,
                   );
                 }
 
@@ -108,7 +110,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 );
               },
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('Erreur: $e')),
+              error: (e, _) => Center(child: Text('${l10n.error}: $e')),
             ),
           ),
         ],

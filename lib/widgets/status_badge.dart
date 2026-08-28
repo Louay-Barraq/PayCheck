@@ -1,5 +1,6 @@
 // widgets/status_badge.dart
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 
 class StatusBadge extends StatelessWidget {
@@ -16,12 +17,14 @@ class StatusBadge extends StatelessWidget {
     this.icon,
   });
 
-  factory StatusBadge.overdue() => const StatusBadge(
-      label: 'En retard', fg: AppColors.danger, bg: AppColors.dangerLight, icon: Icons.warning_rounded);
-  factory StatusBadge.upToDate() => const StatusBadge(
-      label: 'À jour', fg: AppColors.success, bg: AppColors.successLight, icon: Icons.check_circle_rounded);
-  factory StatusBadge.quittancePending() => const StatusBadge(
-      label: 'Quittance en attente', fg: AppColors.warning, bg: AppColors.warningLight, icon: Icons.receipt_rounded);
+  factory StatusBadge.overdue(AppLocalizations l10n) => StatusBadge(
+      label: l10n.overdue, fg: AppColors.danger, bg: AppColors.dangerLight, icon: Icons.warning_rounded);
+  factory StatusBadge.upToDate(AppLocalizations l10n) => StatusBadge(
+      label: l10n.upToDate, fg: AppColors.success, bg: AppColors.successLight, icon: Icons.check_circle_rounded);
+  factory StatusBadge.quittancePending(AppLocalizations l10n) => StatusBadge(
+      label: l10n.quittancePending, fg: AppColors.warning, bg: AppColors.warningLight, icon: Icons.receipt_rounded);
+  factory StatusBadge.inactive(AppLocalizations l10n) => StatusBadge(
+      label: l10n.inactive, fg: Colors.grey, bg: Colors.grey.shade200);
 
   @override
   Widget build(BuildContext context) {

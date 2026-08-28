@@ -1,13 +1,16 @@
 {
   "@@locale": "ar",
   "appTitle": "PayCheck",
+  "appSubtitle": "إدارة العقود والإيصالات",
   "clients": "العملاء",
   "dashboard": "لوحة القيادة",
   "settings": "الإعدادات",
   "email": "البريد الإلكتروني",
   "password": "كلمة المرور",
+  "confirmPassword": "تأكيد كلمة المرور",
   "signIn": "تسجيل الدخول",
   "signUp": "إنشاء حساب",
+  "createAccount": "إنشاء حساب جديد",
   "orContinueWith": "أو المتابعة باستخدام",
   "signInWithGoogle": "الدخول بواسطة جوجل",
   "dontHaveAccount": "ليس لديك حساب؟",
@@ -17,6 +20,7 @@
   "enterEmailToReset": "أدخل بريدك الإلكتروني لتلقي رابط إعادة التعيين.",
   "send": "إرسال",
   "cancel": "إلغاء",
+  "close": "إغلاق",
   "emailSentSuccess": "تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني!",
   "logout": "تسجيل الخروج",
   "logoutConfirmation": "هل أنت متأكد من رغبتك في تسجيل الخروج؟",
@@ -34,6 +38,7 @@
   "search": "بحث...",
   "addClient": "إضافة عميل",
   "editClient": "تعديل العميل",
+  "clientDetails": "تفاصيل العميل",
   "fullName": "الاسم الكامل",
   "phone": "رقم الهاتف",
   "address": "العنوان",
@@ -45,6 +50,7 @@
   "annual": "سنوي",
   "amountDue": "المبلغ المطلوب",
   "contractStartDate": "تاريخ بدء العقد",
+  "nextPaymentDue": "الموعد القادم للدفع",
   "active": "نشط",
   "inactive": "غير نشط",
   "archive": "أرشفة",
@@ -53,23 +59,50 @@
   "clientAdded": "تم إضافة العميل بنجاح!",
   "clientUpdated": "تم تحديث العميل بنجاح!",
   "addPayment": "إضافة دفعة",
-  "amountPaid": "المبلغ المدفوع",
+  "recordPayment": "تسجيل دفعة",
+  "paymentHistory": "سجل المدفوعات",
+  "viewHistory": "عرض السجل",
+  "amountPaid": "المبلغ المدفوع (DT)",
   "paymentDate": "تاريخ الدفع",
   "periodStart": "بداية الفترة",
+  "periodCoveredFrom": "بداية الفترة المشمولة",
   "periodEnd": "نهاية الفترة",
+  "periodUntil": "حتى {date}",
+  "@periodUntil": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
   "paymentMethod": "طريقة الدفع",
   "cash": "نقداً",
   "card": "بطاقة بنكية",
   "check": "شيك",
   "postal": "حوالة بريدية",
   "quittanceGiven": "تم تسليم الوصل",
+  "quittanceRemote": "دفع عن بُعد — تذكر إرسال الوصل",
   "quittanceDate": "تاريخ الوصل",
   "paymentAdded": "تم تسجيل الدفعة بنجاح!",
+  "savingPayment": "جاري الحفظ...",
+  "savePayment": "حفظ الدفعة",
+  "invalidAmount": "مبلغ غير صالح",
+  "enterValidAmount": "أدخل مبلغاً صالحاً (> 0)",
   "totalRevenue": "إجمالي الإيرادات",
   "activeClients": "العملاء النشطون",
   "overdueClients": "المدفوعات المتأخرة",
   "pendingQuittances": "إيصالات قيد الانتظار",
-  "viewAllOverdue": "عرض كافة المتأخرات",
+  "allOverdueClients": "العملاء المتأخرون ({count})",
+  "@allOverdueClients": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "contract": "عقد",
+  "viewAllOverdue": "عرض كافة المتأخرات (+{count})",
+  "@viewAllOverdue": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "noClients": "لا يوجد عملاء حالياً. أضف عميلك الأول!",
   "noPayments": "لم يتم تسجيل أي مدفوعات بعد.",
   "overdue": "متأخر",
@@ -78,5 +111,32 @@
   "syncOnline": "متصل — تم المزامنة",
   "syncOffline": "غير متصل — تم الحفظ محلياً",
   "requiresRecentLogin": "لدواعي أمنية، يرجى إعادة تسجيل الدخول قبل حذف الحساب.",
-  "error": "خطأ"
+  "invalidEmail": "البريد الإلكتروني غير صالح",
+  "minPasswordLength": "6 أحرف على الأقل",
+  "passwordsDoNotMatch": "كلمات المرور غير متطابقة",
+  "requiredField": "حقل مطلوب",
+  "infoAndLegal": "المعلومات والخصوصية",
+  "account": "الحساب",
+  "loginFailed": "فشل تسجيل الدخول",
+  "googleSignInFailed": "فشل الدخول بواسطة جوجل",
+  "error": "خطأ",
+  "collectedThisMonth": "المحصّل هذا الشهر",
+  "vsLastMonth": "{pct}% مقارنة بالشهر الماضي",
+  "@vsLastMonth": {
+    "placeholders": {
+      "pct": { "type": "String" }
+    }
+  },
+  "paymentsCount": "{count} دفعة",
+  "@paymentsCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "overdueTitle": "العملاء المتأخرون",
+  "distributionByMethod": "التوزيع حسب طريقة الدفع",
+  "dueSoon": "استحقاقات (7 أيام)",
+  "historyTitle": "سجل المدفوعات",
+  "history": "السجل",
+  "noPaymentsHistory": "لا توجد مدفوعات مسجلة"
 }

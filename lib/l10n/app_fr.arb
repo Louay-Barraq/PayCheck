@@ -1,13 +1,16 @@
 {
   "@@locale": "fr",
   "appTitle": "PayCheck",
+  "appSubtitle": "Gestion des contrats & quittances",
   "clients": "Clients",
   "dashboard": "Tableau de bord",
   "settings": "Paramètres",
   "email": "Adresse Email",
   "password": "Mot de passe",
+  "confirmPassword": "Confirmer le mot de passe",
   "signIn": "Se connecter",
   "signUp": "S'inscrire",
+  "createAccount": "Créer un compte",
   "orContinueWith": "OU CONTINUER AVEC",
   "signInWithGoogle": "Se connecter avec Google",
   "dontHaveAccount": "Vous n'avez pas de compte ?",
@@ -17,6 +20,7 @@
   "enterEmailToReset": "Entrez votre adresse email pour recevoir un lien de réinitialisation.",
   "send": "Envoyer",
   "cancel": "Annuler",
+  "close": "Fermer",
   "emailSentSuccess": "Un email de réinitialisation a été envoyé !",
   "logout": "Se déconnecter",
   "logoutConfirmation": "Êtes-vous sûr de vouloir vous déconnecter ?",
@@ -34,6 +38,7 @@
   "search": "Rechercher...",
   "addClient": "Ajouter un client",
   "editClient": "Modifier le client",
+  "clientDetails": "Détails du client",
   "fullName": "Nom Complet",
   "phone": "Numéro de téléphone",
   "address": "Adresse",
@@ -45,6 +50,7 @@
   "annual": "Annuel",
   "amountDue": "Montant dû",
   "contractStartDate": "Date début contrat",
+  "nextPaymentDue": "Prochaine échéance",
   "active": "Actif",
   "inactive": "Inactif",
   "archive": "Archiver",
@@ -53,23 +59,50 @@
   "clientAdded": "Client ajouté avec succès !",
   "clientUpdated": "Client mis à jour avec succès !",
   "addPayment": "Ajouter un paiement",
-  "amountPaid": "Montant payé",
+  "recordPayment": "Enregistrer un paiement",
+  "paymentHistory": "Historique des paiements",
+  "viewHistory": "Voir l'historique",
+  "amountPaid": "Montant payé (DT)",
   "paymentDate": "Date de paiement",
   "periodStart": "Début période",
+  "periodCoveredFrom": "Début de la période couverte",
   "periodEnd": "Fin période",
+  "periodUntil": "Jusqu'au {date}",
+  "@periodUntil": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
   "paymentMethod": "Mode de paiement",
   "cash": "Espèces",
   "card": "Carte Bancaire",
   "check": "Chèque",
   "postal": "Virement Postal",
   "quittanceGiven": "Quittance donnée",
+  "quittanceRemote": "Paiement à distance — pensez à faire parvenir la quittance",
   "quittanceDate": "Date quittance",
   "paymentAdded": "Paiement enregistré avec succès !",
+  "savingPayment": "Enregistrement...",
+  "savePayment": "Enregistrer le paiement",
+  "invalidAmount": "Montant invalide",
+  "enterValidAmount": "Entrez un montant valide (> 0)",
   "totalRevenue": "Revenu total",
   "activeClients": "Clients actifs",
   "overdueClients": "Retards de paiement",
   "pendingQuittances": "Quittances en attente",
-  "viewAllOverdue": "Voir tous les retards",
+  "allOverdueClients": "Clients en retard ({count})",
+  "@allOverdueClients": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "contract": "Contrat",
+  "viewAllOverdue": "Voir tous les retards (+{count})",
+  "@viewAllOverdue": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
   "noClients": "Aucun client pour le moment. Ajoutez votre premier client !",
   "noPayments": "Aucun paiement enregistré pour le moment.",
   "overdue": "En retard",
@@ -78,5 +111,32 @@
   "syncOnline": "En ligne — Synchronisé",
   "syncOffline": "Hors-ligne — Sauvegardé localement",
   "requiresRecentLogin": "Pour des raisons de sécurité, veuillez vous reconnecter avant de supprimer votre compte.",
-  "error": "Erreur"
+  "invalidEmail": "Email invalide",
+  "minPasswordLength": "Min 6 caractères",
+  "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
+  "requiredField": "Champ obligatoire",
+  "infoAndLegal": "Informations & Confidentialité",
+  "account": "Compte",
+  "loginFailed": "Échec de connexion",
+  "googleSignInFailed": "Échec Google Sign-In",
+  "error": "Erreur",
+  "collectedThisMonth": "Encaissé ce mois",
+  "vsLastMonth": "{pct}% vs mois dernier",
+  "@vsLastMonth": {
+    "placeholders": {
+      "pct": { "type": "String" }
+    }
+  },
+  "paymentsCount": "{count} paiements",
+  "@paymentsCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "overdueTitle": "Clients en retard",
+  "distributionByMethod": "Répartition par méthode",
+  "dueSoon": "Échéances (7j)",
+  "historyTitle": "Historique des paiements",
+  "history": "Historique",
+  "noPaymentsHistory": "Aucun paiement enregistré"
 }

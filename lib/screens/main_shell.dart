@@ -1,5 +1,6 @@
 // screens/main_shell.dart
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import 'home_screen.dart';
 import 'dashboard_screen.dart';
 import 'settings_screen.dart';
@@ -16,6 +17,8 @@ class _MainShellState extends State<MainShell> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: IndexedStack(
         index: _index,
@@ -28,21 +31,21 @@ class _MainShellState extends State<MainShell> {
       bottomNavigationBar: NavigationBar(
         selectedIndex: _index,
         onDestinationSelected: (i) => setState(() => _index = i),
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.people_outline_rounded),
-            selectedIcon: Icon(Icons.people_rounded),
-            label: 'Clients',
+            icon: const Icon(Icons.people_outline_rounded),
+            selectedIcon: const Icon(Icons.people_rounded),
+            label: l10n.clients,
           ),
           NavigationDestination(
-            icon: Icon(Icons.dashboard_outlined),
-            selectedIcon: Icon(Icons.dashboard_rounded),
-            label: 'Tableau de bord',
+            icon: const Icon(Icons.dashboard_outlined),
+            selectedIcon: const Icon(Icons.dashboard_rounded),
+            label: l10n.dashboard,
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings_rounded),
-            label: 'Paramètres',
+            icon: const Icon(Icons.settings_outlined),
+            selectedIcon: const Icon(Icons.settings_rounded),
+            label: l10n.settings,
           ),
         ],
       ),
