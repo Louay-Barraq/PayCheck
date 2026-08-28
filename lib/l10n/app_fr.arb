@@ -190,5 +190,14 @@
   "notifDueSoonTitle": "📅 Paiement bientôt dû",
   "notifDueTodayMsg": "Paiement dû aujourd'hui !",
   "notifDueInDaysMsg": "Paiement dû dans {days} jour(s)",
-  "notifDueSoonBody": "{clientName} — {dueMsg} ({amount} {currency})"
+  "notifDueSoonBody": "{clientName} — {dueMsg} ({amount} {currency})",
+  "contractDetails": "Détails du contrat",
+  "contractSummary": "Résumé du contrat",
+  "contractStart": "Début du contrat",
+  "receiptIssued": "Reçu délivré",
+  "today": "Aujourd'hui",
+  "tomorrow": "Demain",
+  "inDays": "Dans {count} jours",
+  "contractWithNumber": "Contrat {number}",
+  "paymentDateWithLabel": "Date de paiement : {date}"
 }

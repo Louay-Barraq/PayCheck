@@ -190,5 +190,14 @@
   "notifDueSoonTitle": "📅 Pago próximo a vencer",
   "notifDueTodayMsg": "¡Pago vence hoy!",
   "notifDueInDaysMsg": "Pago vence en {days} día(s)",
-  "notifDueSoonBody": "{clientName} — {dueMsg} ({amount} {currency})"
+  "notifDueSoonBody": "{clientName} — {dueMsg} ({amount} {currency})",
+  "contractDetails": "Detalles del contrato",
+  "contractSummary": "Resumen del contrato",
+  "contractStart": "Inicio del contrato",
+  "receiptIssued": "Recibo entregado",
+  "today": "Hoy",
+  "tomorrow": "Mañana",
+  "inDays": "En {count} días",
+  "contractWithNumber": "Contrato {number}",
+  "paymentDateWithLabel": "Fecha de pago: {date}"
 }

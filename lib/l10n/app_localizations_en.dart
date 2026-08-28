@@ -511,4 +511,37 @@ class AppLocalizationsEn extends AppLocalizations {
   ) {
     return '$clientName — $dueMsg ($amount $currency)';
   }
+
+  @override
+  String get contractDetails => 'Contract Details';
+
+  @override
+  String get contractSummary => 'Contract Summary';
+
+  @override
+  String get contractStart => 'Contract Start';
+
+  @override
+  String get receiptIssued => 'Receipt Issued';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get tomorrow => 'Tomorrow';
+
+  @override
+  String inDays(int count) {
+    return 'In $count days';
+  }
+
+  @override
+  String contractWithNumber(String number) {
+    return 'Contract $number';
+  }
+
+  @override
+  String paymentDateWithLabel(String date) {
+    return 'Payment Date: $date';
+  }
 }

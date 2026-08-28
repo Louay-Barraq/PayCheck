@@ -190,5 +190,14 @@
   "notifDueSoonTitle": "📅 دفعة مستحقة قريباً",
   "notifDueTodayMsg": "الدفعة مستحقة اليوم!",
   "notifDueInDaysMsg": "الدفعة مستحقة خلال {days} يوم",
-  "notifDueSoonBody": "{clientName} — {dueMsg} ({amount} {currency})"
+  "notifDueSoonBody": "{clientName} — {dueMsg} ({amount} {currency})",
+  "contractDetails": "تفاصيل العقد",
+  "contractSummary": "ملخص العقد",
+  "contractStart": "بداية العقد",
+  "receiptIssued": "تم إصدار الوصل",
+  "today": "اليوم",
+  "tomorrow": "غداً",
+  "inDays": "خلال {count} يوم",
+  "contractWithNumber": "العقد {number}",
+  "paymentDateWithLabel": "تاريخ الدفع: {date}"
 }

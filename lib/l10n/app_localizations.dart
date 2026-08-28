@@ -1047,6 +1047,60 @@ abstract class AppLocalizations {
     String amount,
     String currency,
   );
+
+  /// No description provided for @contractDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Contract Details'**
+  String get contractDetails;
+
+  /// No description provided for @contractSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Contract Summary'**
+  String get contractSummary;
+
+  /// No description provided for @contractStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Contract Start'**
+  String get contractStart;
+
+  /// No description provided for @receiptIssued.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt Issued'**
+  String get receiptIssued;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @tomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get tomorrow;
+
+  /// No description provided for @inDays.
+  ///
+  /// In en, this message translates to:
+  /// **'In {count} days'**
+  String inDays(int count);
+
+  /// No description provided for @contractWithNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Contract {number}'**
+  String contractWithNumber(String number);
+
+  /// No description provided for @paymentDateWithLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Date: {date}'**
+  String paymentDateWithLabel(String date);
 }
 
 class _AppLocalizationsDelegate

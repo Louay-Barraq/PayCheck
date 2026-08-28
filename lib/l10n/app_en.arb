@@ -229,5 +229,35 @@
         "type": "String"
       }
     }
+  },
+  "contractDetails": "Contract Details",
+  "contractSummary": "Contract Summary",
+  "contractStart": "Contract Start",
+  "receiptIssued": "Receipt Issued",
+  "today": "Today",
+  "tomorrow": "Tomorrow",
+  "inDays": "In {count} days",
+  "@inDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "contractWithNumber": "Contract {number}",
+  "@contractWithNumber": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "paymentDateWithLabel": "Payment Date: {date}",
+  "@paymentDateWithLabel": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
   }
 }
