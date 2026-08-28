@@ -1,6 +1,8 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import 'package:paycheck/models/client.dart';
 
 final notificationServiceProvider = Provider<NotificationService>((ref) {
@@ -45,6 +47,9 @@ class NotificationService {
 
   Future<void> initialize() async {
     if (_initialized) return;
+
+    // Initialize timezone database for background scheduled notifications
+    tz.initializeTimeZones();
 
     const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
     const darwinSettings = DarwinInitializationSettings(
@@ -128,10 +133,7 @@ class NotificationService {
   }
 
   /// Returns true (and records the key) only the first time a given alert
-  /// key is seen on a given calendar day. Prevents re-alerting the same
-  /// client/state combination every time the dashboard rebuilds — without
-  /// this, a Firestore stream re-emission (very common) would re-fire the
-  /// exact same notification with sound/vibration repeatedly in one sitting.
+  /// key is seen on a given calendar day.
   Future<bool> _shouldNotify(String key) async {
     final prefs = await SharedPreferences.getInstance();
     final today = DateTime.now().toIso8601String().substring(0, 10); // YYYY-MM-DD
@@ -139,7 +141,6 @@ class NotificationService {
 
     List<String> sentKeys;
     if (storedDate != today) {
-      // New day — reset the dedup set so today's alerts can fire again.
       sentKeys = [];
       await prefs.setString(_dateKey, today);
     } else {
@@ -153,9 +154,9 @@ class NotificationService {
     return true;
   }
 
-  /// Sends at most one notification per client/state per day for overdue
-  /// and soon-to-be-due clients. [nextDueDates] maps clientId -> next due
-  /// date, as already computed by the dashboard.
+  /// Sends immediate alerts for currently overdue/due-soon clients AND schedules
+  /// background local notifications (using zonedSchedule) for future due dates,
+  /// so reminders fire automatically on-device even when the app is closed.
   Future<void> checkAndSendPaymentAlerts({
     required List<Client> overdueClients,
     required List<Client> dueSoonClients,
@@ -167,6 +168,7 @@ class NotificationService {
 
     int notificationId = 100;
 
+    // 1. Immediate alerts for current state
     for (final client in overdueClients) {
       final key = 'overdue_${client.id}';
       if (!await _shouldNotify(key)) continue;
@@ -226,6 +228,79 @@ class NotificationService {
         ),
         notificationDetails: details,
       );
+    }
+
+    // 2. Schedule background local notifications (zonedSchedule) for future due dates
+    await _scheduleFutureReminders(
+      nextDueDates: nextDueDates,
+      overdueClients: overdueClients,
+      dueSoonClients: dueSoonClients,
+      currencySymbol: currencySymbol,
+      texts: texts,
+    );
+  }
+
+  /// Schedules background local notifications for future payment due dates at 9:00 AM,
+  /// ensuring reminders fire on the user's device even if the app is closed.
+  Future<void> _scheduleFutureReminders({
+    required Map<String, DateTime> nextDueDates,
+    required List<Client> overdueClients,
+    required List<Client> dueSoonClients,
+    required String currencySymbol,
+    required NotificationTexts texts,
+  }) async {
+    const androidDetails = AndroidNotificationDetails(
+      'payment_reminders',
+      'Payment Reminders',
+      channelDescription: 'Reminders for client payment due dates and overdue payments',
+      importance: Importance.high,
+      priority: Priority.high,
+      icon: '@mipmap/ic_launcher',
+    );
+    const details = NotificationDetails(android: androidDetails, iOS: DarwinNotificationDetails());
+
+    final now = DateTime.now();
+
+    for (final entry in nextDueDates.entries) {
+      final clientId = entry.key;
+      final due = entry.value;
+
+      // 9:00 AM on the due date
+      final dueMorning = DateTime(due.year, due.month, due.day, 9, 0);
+
+      if (dueMorning.isAfter(now)) {
+        final scheduledTz = tz.TZDateTime.from(dueMorning, tz.local);
+        final schedId = (clientId.hashCode ^ 0x01) & 0x7FFFFFFF;
+
+        try {
+          await _notificationsPlugin.zonedSchedule(
+            id: schedId,
+            title: texts.dueSoonTitle,
+            body: texts.dueTodayMsg,
+            scheduledDate: scheduledTz,
+            notificationDetails: details,
+            androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+          );
+        } catch (_) {}
+      }
+
+      // 9:00 AM 1 day after due date (overdue reminder)
+      final overdueMorning = dueMorning.add(const Duration(days: 1));
+      if (overdueMorning.isAfter(now)) {
+        final scheduledTz = tz.TZDateTime.from(overdueMorning, tz.local);
+        final schedId = (clientId.hashCode ^ 0x02) & 0x7FFFFFFF;
+
+        try {
+          await _notificationsPlugin.zonedSchedule(
+            id: schedId,
+            title: texts.overdueTitle,
+            body: texts.dueInDaysMsg(1),
+            scheduledDate: scheduledTz,
+            notificationDetails: details,
+            androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+          );
+        } catch (_) {}
+      }
     }
   }
 }

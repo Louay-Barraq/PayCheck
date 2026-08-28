@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
 import '../models/client.dart';
+import '../models/payment.dart';
 import '../providers/dashboard_providers.dart';
 import '../providers/user_profile_provider.dart';
 import '../services/notification_service.dart';
