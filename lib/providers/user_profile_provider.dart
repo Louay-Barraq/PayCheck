@@ -107,7 +107,9 @@ class UserProfileNotifier extends AsyncNotifier<UserProfile> {
     final uid = _uid;
     if (uid == null) return;
     state = AsyncData(profile);
-    await _db.collection('users').doc(uid).collection('profile').doc('data').set(profile.toFirestore());
+    try {
+      await _db.collection('users').doc(uid).collection('profile').doc('data').set(profile.toFirestore());
+    } catch (_) {}
   }
 
   Future<void> completeOnboarding(UserProfile profile) async {
@@ -115,15 +117,21 @@ class UserProfileNotifier extends AsyncNotifier<UserProfile> {
     if (uid == null) return;
     final completed = profile.copyWith(onboardingComplete: true);
     state = AsyncData(completed);
-    await _db
-        .collection('users')
-        .doc(uid)
-        .collection('profile')
-        .doc('data')
-        .set(completed.toFirestore());
-    // Also persist locally so we don't flash the onboarding on next launch
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('${_onboardingKey}_$uid', true);
+
+    // Persist locally first so user isn't stuck if network or Firestore rules fail
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('${_onboardingKey}_$uid', true);
+    } catch (_) {}
+
+    try {
+      await _db
+          .collection('users')
+          .doc(uid)
+          .collection('profile')
+          .doc('data')
+          .set(completed.toFirestore());
+    } catch (_) {}
   }
 
   static Future<bool> isOnboardingComplete(String uid) async {
