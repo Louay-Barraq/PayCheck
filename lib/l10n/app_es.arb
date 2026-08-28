@@ -138,5 +138,45 @@
   "dueSoon": "Próximos vencimientos (7d)",
   "historyTitle": "Historial de pagos",
   "history": "Historial",
-  "noPaymentsHistory": "No hay pagos registrados"
+  "noPaymentsHistory": "No hay pagos registrados",
+
+  "onbNext": "Siguiente",
+  "onbSkip": "Omitir",
+  "onbGetStarted": "Empezar",
+  "onbFinish": "¡Listo! 🎉",
+
+  "feat1Title": "Gestiona tus clientes",
+  "feat1Desc": "Añade clientes con sus contratos, calendarios e información de contacto — todo organizado en un solo lugar.",
+  "feat2Title": "Registra cada pago",
+  "feat2Desc": "Registra pagos en efectivo, tarjeta, cheque o transferencia y genera recibos en segundos.",
+  "feat3Title": "Métricas instantáneas",
+  "feat3Desc": "Consulta tus ingresos mensuales, clientes con pagos atrasados y próximos vencimientos de un vistazo.",
+
+  "onbProfessionTitle": "¿Cuál es tu profesión?",
+  "onbProfessionSubtitle": "Adaptaremos la experiencia a tu trabajo",
+  "profRealEstate": "Agente Inmobiliario",
+  "profPropertyManager": "Administrador de propiedades",
+  "profAccountant": "Contable",
+  "profContractor": "Contratista",
+  "profFreelancer": "Freelancer",
+  "profBusinessOwner": "Empresario",
+  "profOther": "Otro",
+
+  "onbAgeTitle": "¿Cuántos años tienes?",
+  "onbAgeSubtitle": "Ayúdanos a entender mejor a nuestros usuarios",
+  "ageUnder25": "Menos de 25",
+  "age25_34": "25 – 34",
+  "age35_44": "35 – 44",
+  "age45_54": "45 – 54",
+  "age55Plus": "55 +",
+
+  "onbCountryTitle": "¿Dónde estás?",
+  "onbCountrySubtitle": "Configuraremos automáticamente la moneda correcta para ti",
+  "onbCountrySearch": "Buscar país...",
+
+  "onbNotifTitle": "No te pierdas ningún pago",
+  "onbNotifSubtitle": "Recibe recordatorios antes de las fechas de vencimiento para mantenerte al día de tus ingresos.",
+  "onbNotifEnable": "Activar notificaciones",
+  "onbNotifSkip": "Quizás más tarde",
+  "onbNotifGranted": "Notificaciones activadas ✓"
 }

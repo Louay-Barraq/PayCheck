@@ -5,6 +5,7 @@ import 'package:uuid/uuid.dart';
 import '../l10n/app_localizations.dart';
 import '../models/client.dart';
 import '../providers/client_providers.dart';
+import '../providers/user_profile_provider.dart';
 import '../theme/app_theme.dart';
 
 class AddClientScreen extends ConsumerStatefulWidget {
@@ -78,6 +79,7 @@ class _AddClientScreenState extends ConsumerState<AddClientScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final currency = ref.watch(currencySymbolProvider);
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.addClient)),
@@ -141,7 +143,7 @@ class _AddClientScreenState extends ConsumerState<AddClientScreen> {
                     TextFormField(
                       controller: _amountCtrl,
                       decoration: InputDecoration(
-                        labelText: '${l10n.amountDue} (DT)',
+                        labelText: '${l10n.amountDue} ($currency)',
                         prefixIcon: const Icon(Icons.payments_outlined),
                       ),
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),

@@ -785,6 +785,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No payments recorded'**
   String get noPaymentsHistory;
+
+  /// No description provided for @onbNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get onbNext;
+
+  /// No description provided for @onbSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get onbSkip;
+
+  /// No description provided for @onbGetStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get onbGetStarted;
+
+  /// No description provided for @onbFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'All Set! 🎉'**
+  String get onbFinish;
+
+  /// No description provided for @feat1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Your Clients'**
+  String get feat1Title;
+
+  /// No description provided for @feat1Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Add clients with their contracts, schedules, and contact info — all organized in one place.'**
+  String get feat1Desc;
+
+  /// No description provided for @feat2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Track Every Payment'**
+  String get feat2Title;
+
+  /// No description provided for @feat2Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Record payments by cash, card, check, or transfer and generate receipts in seconds.'**
+  String get feat2Desc;
+
+  /// No description provided for @feat3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Instant Insights'**
+  String get feat3Title;
+
+  /// No description provided for @feat3Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'See your monthly revenue, overdue clients, and upcoming payments at a glance.'**
+  String get feat3Desc;
+
+  /// No description provided for @onbProfessionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your profession?'**
+  String get onbProfessionTitle;
+
+  /// No description provided for @onbProfessionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll tailor the experience to fit your work'**
+  String get onbProfessionSubtitle;
+
+  /// No description provided for @profRealEstate.
+  ///
+  /// In en, this message translates to:
+  /// **'Real Estate Agent'**
+  String get profRealEstate;
+
+  /// No description provided for @profPropertyManager.
+  ///
+  /// In en, this message translates to:
+  /// **'Property Manager'**
+  String get profPropertyManager;
+
+  /// No description provided for @profAccountant.
+  ///
+  /// In en, this message translates to:
+  /// **'Accountant'**
+  String get profAccountant;
+
+  /// No description provided for @profContractor.
+  ///
+  /// In en, this message translates to:
+  /// **'Contractor'**
+  String get profContractor;
+
+  /// No description provided for @profFreelancer.
+  ///
+  /// In en, this message translates to:
+  /// **'Freelancer'**
+  String get profFreelancer;
+
+  /// No description provided for @profBusinessOwner.
+  ///
+  /// In en, this message translates to:
+  /// **'Business Owner'**
+  String get profBusinessOwner;
+
+  /// No description provided for @profOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get profOther;
+
+  /// No description provided for @onbAgeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How old are you?'**
+  String get onbAgeTitle;
+
+  /// No description provided for @onbAgeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Help us understand our users better'**
+  String get onbAgeSubtitle;
+
+  /// No description provided for @ageUnder25.
+  ///
+  /// In en, this message translates to:
+  /// **'Under 25'**
+  String get ageUnder25;
+
+  /// No description provided for @age25_34.
+  ///
+  /// In en, this message translates to:
+  /// **'25 – 34'**
+  String get age25_34;
+
+  /// No description provided for @age35_44.
+  ///
+  /// In en, this message translates to:
+  /// **'35 – 44'**
+  String get age35_44;
+
+  /// No description provided for @age45_54.
+  ///
+  /// In en, this message translates to:
+  /// **'45 – 54'**
+  String get age45_54;
+
+  /// No description provided for @age55Plus.
+  ///
+  /// In en, this message translates to:
+  /// **'55 +'**
+  String get age55Plus;
+
+  /// No description provided for @onbCountryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where are you based?'**
+  String get onbCountryTitle;
+
+  /// No description provided for @onbCountrySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll set the right currency for you automatically'**
+  String get onbCountrySubtitle;
+
+  /// No description provided for @onbCountrySearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search country...'**
+  String get onbCountrySearch;
+
+  /// No description provided for @onbNotifTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Never Miss a Payment'**
+  String get onbNotifTitle;
+
+  /// No description provided for @onbNotifSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Get reminders before payment due dates so you always stay on top of your revenue.'**
+  String get onbNotifSubtitle;
+
+  /// No description provided for @onbNotifEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Notifications'**
+  String get onbNotifEnable;
+
+  /// No description provided for @onbNotifSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Maybe Later'**
+  String get onbNotifSkip;
+
+  /// No description provided for @onbNotifGranted.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications enabled ✓'**
+  String get onbNotifGranted;
 }
 
 class _AppLocalizationsDelegate

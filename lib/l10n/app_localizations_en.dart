@@ -362,4 +362,112 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noPaymentsHistory => 'No payments recorded';
+
+  @override
+  String get onbNext => 'Next';
+
+  @override
+  String get onbSkip => 'Skip';
+
+  @override
+  String get onbGetStarted => 'Get Started';
+
+  @override
+  String get onbFinish => 'All Set! 🎉';
+
+  @override
+  String get feat1Title => 'Manage Your Clients';
+
+  @override
+  String get feat1Desc =>
+      'Add clients with their contracts, schedules, and contact info — all organized in one place.';
+
+  @override
+  String get feat2Title => 'Track Every Payment';
+
+  @override
+  String get feat2Desc =>
+      'Record payments by cash, card, check, or transfer and generate receipts in seconds.';
+
+  @override
+  String get feat3Title => 'Instant Insights';
+
+  @override
+  String get feat3Desc =>
+      'See your monthly revenue, overdue clients, and upcoming payments at a glance.';
+
+  @override
+  String get onbProfessionTitle => 'What\'s your profession?';
+
+  @override
+  String get onbProfessionSubtitle =>
+      'We\'ll tailor the experience to fit your work';
+
+  @override
+  String get profRealEstate => 'Real Estate Agent';
+
+  @override
+  String get profPropertyManager => 'Property Manager';
+
+  @override
+  String get profAccountant => 'Accountant';
+
+  @override
+  String get profContractor => 'Contractor';
+
+  @override
+  String get profFreelancer => 'Freelancer';
+
+  @override
+  String get profBusinessOwner => 'Business Owner';
+
+  @override
+  String get profOther => 'Other';
+
+  @override
+  String get onbAgeTitle => 'How old are you?';
+
+  @override
+  String get onbAgeSubtitle => 'Help us understand our users better';
+
+  @override
+  String get ageUnder25 => 'Under 25';
+
+  @override
+  String get age25_34 => '25 – 34';
+
+  @override
+  String get age35_44 => '35 – 44';
+
+  @override
+  String get age45_54 => '45 – 54';
+
+  @override
+  String get age55Plus => '55 +';
+
+  @override
+  String get onbCountryTitle => 'Where are you based?';
+
+  @override
+  String get onbCountrySubtitle =>
+      'We\'ll set the right currency for you automatically';
+
+  @override
+  String get onbCountrySearch => 'Search country...';
+
+  @override
+  String get onbNotifTitle => 'Never Miss a Payment';
+
+  @override
+  String get onbNotifSubtitle =>
+      'Get reminders before payment due dates so you always stay on top of your revenue.';
+
+  @override
+  String get onbNotifEnable => 'Enable Notifications';
+
+  @override
+  String get onbNotifSkip => 'Maybe Later';
+
+  @override
+  String get onbNotifGranted => 'Notifications enabled ✓';
 }

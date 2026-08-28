@@ -363,4 +363,110 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noPaymentsHistory => 'لا توجد مدفوعات مسجلة';
+
+  @override
+  String get onbNext => 'التالي';
+
+  @override
+  String get onbSkip => 'تخطي';
+
+  @override
+  String get onbGetStarted => 'ابدأ الآن';
+
+  @override
+  String get onbFinish => 'انطلق! 🎉';
+
+  @override
+  String get feat1Title => 'أدِر عملاءك';
+
+  @override
+  String get feat1Desc =>
+      'أضف العملاء مع عقودهم ومواعيدهم ومعلومات التواصل — كل شيء منظم في مكان واحد.';
+
+  @override
+  String get feat2Title => 'تتبّع كل دفعة';
+
+  @override
+  String get feat2Desc =>
+      'سجّل المدفوعات نقداً أو ببطاقة أو بشيك أو بحوالة، وأصدر الوصولات في ثوانٍ.';
+
+  @override
+  String get feat3Title => 'إحصاءات فورية';
+
+  @override
+  String get feat3Desc =>
+      'اطّلع على إيراداتك الشهرية والمدفوعات المتأخرة والاستحقاقات القادمة دفعة واحدة.';
+
+  @override
+  String get onbProfessionTitle => 'ما هي مهنتك؟';
+
+  @override
+  String get onbProfessionSubtitle => 'سنخصّص التطبيق ليناسب عملك';
+
+  @override
+  String get profRealEstate => 'وكيل عقاري';
+
+  @override
+  String get profPropertyManager => 'مدير عقارات';
+
+  @override
+  String get profAccountant => 'محاسب';
+
+  @override
+  String get profContractor => 'مقاول';
+
+  @override
+  String get profFreelancer => 'مستقل';
+
+  @override
+  String get profBusinessOwner => 'صاحب عمل';
+
+  @override
+  String get profOther => 'أخرى';
+
+  @override
+  String get onbAgeTitle => 'كم عمرك؟';
+
+  @override
+  String get onbAgeSubtitle => 'ساعدنا على فهم مستخدمينا بشكل أفضل';
+
+  @override
+  String get ageUnder25 => 'أقل من 25';
+
+  @override
+  String get age25_34 => '25 – 34';
+
+  @override
+  String get age35_44 => '35 – 44';
+
+  @override
+  String get age45_54 => '45 – 54';
+
+  @override
+  String get age55Plus => '55 فأكثر';
+
+  @override
+  String get onbCountryTitle => 'أين تقيم؟';
+
+  @override
+  String get onbCountrySubtitle => 'سنضبط العملة المناسبة لك تلقائياً';
+
+  @override
+  String get onbCountrySearch => 'ابحث عن دولة...';
+
+  @override
+  String get onbNotifTitle => 'لا تفوّت أي دفعة';
+
+  @override
+  String get onbNotifSubtitle =>
+      'احصل على تذكيرات قبل مواعيد الاستحقاق لتبقى دائماً على اطلاع بإيراداتك.';
+
+  @override
+  String get onbNotifEnable => 'تفعيل الإشعارات';
+
+  @override
+  String get onbNotifSkip => 'ربما لاحقاً';
+
+  @override
+  String get onbNotifGranted => 'تم تفعيل الإشعارات ✓';
 }

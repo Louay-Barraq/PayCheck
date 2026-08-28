@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../l10n/app_localizations.dart';
 import '../models/payment.dart';
 import '../providers/history_providers.dart';
+import '../providers/user_profile_provider.dart';
 import '../theme/app_theme.dart';
 import '../widgets/empty_state.dart';
 
@@ -14,6 +15,7 @@ class PaymentHistoryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final currency = ref.watch(currencySymbolProvider);
     final locale = Localizations.localeOf(context).toLanguageTag();
     final dateFmt = DateFormat('dd MMMM yyyy', locale);
     final historyAsync = ref.watch(recentPaymentsProvider);
@@ -53,7 +55,7 @@ class PaymentHistoryScreen extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  ...entry.value.map((item) => _HistoryTile(item: item)),
+                  ...entry.value.map((item) => _HistoryTile(item: item, currency: currency)),
                 ],
               );
             }).toList(),
@@ -68,7 +70,8 @@ class PaymentHistoryScreen extends ConsumerWidget {
 
 class _HistoryTile extends StatelessWidget {
   final PaymentWithClient item;
-  const _HistoryTile({required this.item});
+  final String currency;
+  const _HistoryTile({required this.item, required this.currency});
 
   static final _timeFmt = DateFormat('HH:mm');
 
@@ -90,7 +93,7 @@ class _HistoryTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              '${p.amountPaid.toStringAsFixed(0)} DT',
+              '${p.amountPaid.toStringAsFixed(0)} $currency',
               style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.primary),
             ),
             const SizedBox(height: 2),

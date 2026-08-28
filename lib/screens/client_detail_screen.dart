@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../l10n/app_localizations.dart';
+import '../providers/user_profile_provider.dart';
 import '../utils/payment_utils.dart';
 import '../models/client.dart';
 import '../models/payment.dart';
@@ -19,6 +20,7 @@ class ClientDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final currency = ref.watch(currencySymbolProvider);
     final paymentsAsync = ref.watch(paymentsForClientProvider(client.id));
 
     return Scaffold(
@@ -100,7 +102,7 @@ class ClientDetailScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 6),
                       Text('${l10n.paymentPeriod}: ${client.paymentPeriod.localizedLabel(context)}'),
-                      Text('${l10n.amountDue}: ${client.amountDue.toStringAsFixed(0)} DT'),
+                      Text('${l10n.amountDue}: ${client.amountDue.toStringAsFixed(0)} $currency'),
                       if (client.phone != null && client.phone!.isNotEmpty)
                         Text('${l10n.phone}: ${client.phone}'),
                       if (client.address != null && client.address!.isNotEmpty)
@@ -147,7 +149,7 @@ class ClientDetailScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
-              ...payments.map((p) => _PaymentTile(payment: p)),
+              ...payments.map((p) => _PaymentTile(payment: p, currency: currency)),
             ],
           );
         },
@@ -168,7 +170,8 @@ class ClientDetailScreen extends ConsumerWidget {
 
 class _PaymentTile extends ConsumerWidget {
   final Payment payment;
-  const _PaymentTile({required this.payment});
+  final String currency;
+  const _PaymentTile({required this.payment, required this.currency});
 
   static final _dateFmt = DateFormat('dd/MM/yyyy');
 
@@ -191,7 +194,7 @@ class _PaymentTile extends ConsumerWidget {
             size: 20,
           ),
         ),
-        title: Text('${payment.amountPaid.toStringAsFixed(0)} DT — ${payment.method.localizedLabel(context)}'),
+        title: Text('${payment.amountPaid.toStringAsFixed(0)} $currency — ${payment.method.localizedLabel(context)}'),
         subtitle: Text(
           '${l10n.paymentDate}: ${_dateFmt.format(payment.paymentDate)}\n'
           '${_dateFmt.format(payment.periodStart)} → ${_dateFmt.format(payment.periodEnd)}',

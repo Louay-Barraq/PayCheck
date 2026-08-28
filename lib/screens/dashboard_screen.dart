@@ -5,6 +5,7 @@ import '../l10n/app_localizations.dart';
 import '../models/client.dart';
 import '../models/payment.dart';
 import '../providers/dashboard_providers.dart';
+import '../providers/user_profile_provider.dart';
 import '../theme/app_theme.dart';
 import '../widgets/status_badge.dart';
 import 'client_detail_screen.dart';
@@ -16,6 +17,7 @@ class DashboardScreen extends ConsumerWidget {
   void _showAllOverdueDialog(
     BuildContext context,
     List<Client> overdueClients,
+    String currency,
   ) {
     showModalBottomSheet(
       context: context,
@@ -83,7 +85,7 @@ class DashboardScreen extends ConsumerWidget {
                             '${l10n.contract}: ${c.contractNumber} · ${c.paymentPeriod.localizedLabel(context)}',
                           ),
                           trailing: Text(
-                            '${c.amountDue.toStringAsFixed(0)} DT',
+                            '${c.amountDue.toStringAsFixed(0)} $currency',
                             style: const TextStyle(
                               color: AppColors.danger,
                               fontWeight: FontWeight.w700,
@@ -115,6 +117,7 @@ class DashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final currency = ref.watch(currencySymbolProvider);
     final dashAsync = ref.watch(dashboardProvider);
 
     return Scaffold(
@@ -136,7 +139,7 @@ class DashboardScreen extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
           children: [
             // Hero card: main revenue KPI with trend
-            _RevenueHeroCard(data: data),
+            _RevenueHeroCard(data: data, currency: currency),
             const SizedBox(height: 16),
 
             // Secondary KPI grid
@@ -158,7 +161,7 @@ class DashboardScreen extends ConsumerWidget {
                   icon: Icons.warning_amber_rounded,
                   label: l10n.overdueClients,
                   value: '${data.overdueCount}',
-                  sub: '${data.totalOverdueAmount.toStringAsFixed(0)} DT',
+                  sub: '${data.totalOverdueAmount.toStringAsFixed(0)} $currency',
                   color: AppColors.danger,
                 ),
                 _MiniKpi(
@@ -217,7 +220,7 @@ class DashboardScreen extends ConsumerWidget {
                                 ],
                               ),
                               Text(
-                                '${e.value.toStringAsFixed(0)} DT',
+                                '${e.value.toStringAsFixed(0)} $currency',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -283,7 +286,7 @@ class DashboardScreen extends ConsumerWidget {
                         ),
                         subtitle: Text('${l10n.contract}: ${c.contractNumber}'),
                         trailing: Text(
-                          '${c.amountDue.toStringAsFixed(0)} DT',
+                          '${c.amountDue.toStringAsFixed(0)} $currency',
                           style: const TextStyle(
                             color: AppColors.danger,
                             fontWeight: FontWeight.w700,
@@ -303,7 +306,7 @@ class DashboardScreen extends ConsumerWidget {
                   alignment: Alignment.center,
                   child: TextButton.icon(
                     onPressed: () =>
-                        _showAllOverdueDialog(context, data.overdueClients),
+                        _showAllOverdueDialog(context, data.overdueClients, currency),
                     icon: const Icon(Icons.arrow_forward_rounded, size: 16),
                     label: Text(
                       l10n.viewAllOverdue(data.overdueClients.length - 5),
@@ -325,7 +328,8 @@ class DashboardScreen extends ConsumerWidget {
 
 class _RevenueHeroCard extends StatelessWidget {
   final DashboardData data;
-  const _RevenueHeroCard({required this.data});
+  final String currency;
+  const _RevenueHeroCard({required this.data, required this.currency});
 
   @override
   Widget build(BuildContext context) {
@@ -347,7 +351,7 @@ class _RevenueHeroCard extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            '${data.collectedThisMonth.toStringAsFixed(0)} DT',
+            '${data.collectedThisMonth.toStringAsFixed(0)} $currency',
             style: const TextStyle(
               color: Colors.white,
               fontSize: 32,

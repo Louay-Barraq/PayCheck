@@ -365,4 +365,112 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get noPaymentsHistory => 'Aucun paiement enregistré';
+
+  @override
+  String get onbNext => 'Suivant';
+
+  @override
+  String get onbSkip => 'Passer';
+
+  @override
+  String get onbGetStarted => 'Commencer';
+
+  @override
+  String get onbFinish => 'C\'est parti ! 🎉';
+
+  @override
+  String get feat1Title => 'Gérez vos clients';
+
+  @override
+  String get feat1Desc =>
+      'Ajoutez vos clients avec leurs contrats, échéances et coordonnées — tout organisé en un seul endroit.';
+
+  @override
+  String get feat2Title => 'Suivez chaque paiement';
+
+  @override
+  String get feat2Desc =>
+      'Enregistrez les paiements en espèces, carte, chèque ou virement et générez des quittances en quelques secondes.';
+
+  @override
+  String get feat3Title => 'Tableau de bord instantané';
+
+  @override
+  String get feat3Desc =>
+      'Visualisez vos encaissements du mois, vos clients en retard et vos prochaines échéances d\'un coup d\'œil.';
+
+  @override
+  String get onbProfessionTitle => 'Quelle est votre profession ?';
+
+  @override
+  String get onbProfessionSubtitle =>
+      'Nous adapterons l\'application à votre activité';
+
+  @override
+  String get profRealEstate => 'Agent Immobilier';
+
+  @override
+  String get profPropertyManager => 'Gestionnaire de biens';
+
+  @override
+  String get profAccountant => 'Comptable';
+
+  @override
+  String get profContractor => 'Entrepreneur';
+
+  @override
+  String get profFreelancer => 'Freelance';
+
+  @override
+  String get profBusinessOwner => 'Chef d\'entreprise';
+
+  @override
+  String get profOther => 'Autre';
+
+  @override
+  String get onbAgeTitle => 'Quel âge avez-vous ?';
+
+  @override
+  String get onbAgeSubtitle => 'Aidez-nous à mieux comprendre nos utilisateurs';
+
+  @override
+  String get ageUnder25 => 'Moins de 25 ans';
+
+  @override
+  String get age25_34 => '25 – 34 ans';
+
+  @override
+  String get age35_44 => '35 – 44 ans';
+
+  @override
+  String get age45_54 => '45 – 54 ans';
+
+  @override
+  String get age55Plus => '55 ans et +';
+
+  @override
+  String get onbCountryTitle => 'Où êtes-vous basé ?';
+
+  @override
+  String get onbCountrySubtitle =>
+      'Nous définirons automatiquement la bonne devise pour vous';
+
+  @override
+  String get onbCountrySearch => 'Rechercher un pays...';
+
+  @override
+  String get onbNotifTitle => 'Ne ratez aucun paiement';
+
+  @override
+  String get onbNotifSubtitle =>
+      'Recevez des rappels avant les dates d\'échéance pour ne jamais manquer un encaissement.';
+
+  @override
+  String get onbNotifEnable => 'Activer les notifications';
+
+  @override
+  String get onbNotifSkip => 'Peut-être plus tard';
+
+  @override
+  String get onbNotifGranted => 'Notifications activées ✓';
 }
