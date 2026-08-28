@@ -199,5 +199,20 @@
   "tomorrow": "Demain",
   "inDays": "Dans {count} jours",
   "contractWithNumber": "Contrat {number}",
-  "paymentDateWithLabel": "Date de paiement : {date}"
+  "paymentDateWithLabel": "Date de paiement : {date}",
+  "preferences": "Préférences",
+  "chooseAppLanguage": "Choisissez la langue de l'application",
+
+  "readPrivacyPolicy": "Consultez notre politique de confidentialité",
+  "currentAppVersion": "Version actuelle de l'application",
+
+  "signOutDescription": "Se déconnecter de votre compte",
+  "deleteAccountDescription": "Supprimer définitivement votre compte et toutes vos données",
+
+  "needHelp": "Besoin d'aide ?",
+  "supportDescription": "Si vous avez des questions ou des commentaires, nous sommes là pour vous aider.",
+  "contactSupport": "Contacter le support",
+  "supportNotConfigured": "Le contact du support n'est pas encore configuré.",
+
+  "dataSecurePrivate": "Vos données sont sécurisées et privées."
 }

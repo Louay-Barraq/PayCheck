@@ -259,5 +259,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "preferences": "Preferences",
+  "chooseAppLanguage": "Choose your app language",
+
+  "readPrivacyPolicy": "Read our privacy policy",
+  "currentAppVersion": "Current app version",
+
+  "signOutDescription": "Sign out from your account",
+  "deleteAccountDescription": "Permanently delete your account and all data",
+
+  "needHelp": "Need help?",
+  "supportDescription": "If you have any questions or feedback, we're here to help.",
+  "contactSupport": "Contact Support",
+  "supportNotConfigured": "Support contact is not configured yet.",
+
+  "dataSecurePrivate": "Your data is secure and private."
 }

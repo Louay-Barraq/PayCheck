@@ -199,5 +199,20 @@
   "tomorrow": "غداً",
   "inDays": "خلال {count} يوم",
   "contractWithNumber": "العقد {number}",
-  "paymentDateWithLabel": "تاريخ الدفع: {date}"
+  "paymentDateWithLabel": "تاريخ الدفع: {date}",
+  "preferences": "التفضيلات",
+  "chooseAppLanguage": "اختر لغة التطبيق",
+
+  "readPrivacyPolicy": "اقرأ سياسة الخصوصية الخاصة بنا",
+  "currentAppVersion": "الإصدار الحالي للتطبيق",
+
+  "signOutDescription": "تسجيل الخروج من حسابك",
+  "deleteAccountDescription": "حذف حسابك وجميع بياناتك نهائيًا",
+
+  "needHelp": "هل تحتاج إلى مساعدة؟",
+  "supportDescription": "إذا كانت لديك أي أسئلة أو ملاحظات، فنحن هنا لمساعدتك.",
+  "contactSupport": "التواصل مع الدعم",
+  "supportNotConfigured": "لم يتم إعداد جهة اتصال الدعم بعد.",
+
+  "dataSecurePrivate": "بياناتك آمنة وخاصة."
 }

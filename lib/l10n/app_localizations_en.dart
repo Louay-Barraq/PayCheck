@@ -544,4 +544,39 @@ class AppLocalizationsEn extends AppLocalizations {
   String paymentDateWithLabel(String date) {
     return 'Payment Date: $date';
   }
+
+  @override
+  String get preferences => 'Preferences';
+
+  @override
+  String get chooseAppLanguage => 'Choose your app language';
+
+  @override
+  String get readPrivacyPolicy => 'Read our privacy policy';
+
+  @override
+  String get currentAppVersion => 'Current app version';
+
+  @override
+  String get signOutDescription => 'Sign out from your account';
+
+  @override
+  String get deleteAccountDescription =>
+      'Permanently delete your account and all data';
+
+  @override
+  String get needHelp => 'Need help?';
+
+  @override
+  String get supportDescription =>
+      'If you have any questions or feedback, we\'re here to help.';
+
+  @override
+  String get contactSupport => 'Contact Support';
+
+  @override
+  String get supportNotConfigured => 'Support contact is not configured yet.';
+
+  @override
+  String get dataSecurePrivate => 'Your data is secure and private.';
 }

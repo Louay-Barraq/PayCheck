@@ -1101,6 +1101,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Payment Date: {date}'**
   String paymentDateWithLabel(String date);
+
+  /// No description provided for @preferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get preferences;
+
+  /// No description provided for @chooseAppLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your app language'**
+  String get chooseAppLanguage;
+
+  /// No description provided for @readPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Read our privacy policy'**
+  String get readPrivacyPolicy;
+
+  /// No description provided for @currentAppVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Current app version'**
+  String get currentAppVersion;
+
+  /// No description provided for @signOutDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out from your account'**
+  String get signOutDescription;
+
+  /// No description provided for @deleteAccountDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Permanently delete your account and all data'**
+  String get deleteAccountDescription;
+
+  /// No description provided for @needHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Need help?'**
+  String get needHelp;
+
+  /// No description provided for @supportDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'If you have any questions or feedback, we\'re here to help.'**
+  String get supportDescription;
+
+  /// No description provided for @contactSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Support'**
+  String get contactSupport;
+
+  /// No description provided for @supportNotConfigured.
+  ///
+  /// In en, this message translates to:
+  /// **'Support contact is not configured yet.'**
+  String get supportNotConfigured;
+
+  /// No description provided for @dataSecurePrivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data is secure and private.'**
+  String get dataSecurePrivate;
 }
 
 class _AppLocalizationsDelegate

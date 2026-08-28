@@ -16,10 +16,7 @@ import 'add_payment_screen.dart';
 class ClientDetailScreen extends ConsumerWidget {
   final Client client;
 
-  const ClientDetailScreen({
-    super.key,
-    required this.client,
-  });
+  const ClientDetailScreen({super.key, required this.client});
 
   static final _dateFmt = DateFormat('dd/MM/yyyy');
 
@@ -36,10 +33,7 @@ class ClientDetailScreen extends ConsumerWidget {
         elevation: 0,
         scrolledUnderElevation: 0,
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            size: 22,
-          ),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 22),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
@@ -52,16 +46,11 @@ class ClientDetailScreen extends ConsumerWidget {
         ),
         actions: [
           PopupMenuButton<String>(
-            icon: const Icon(
-              Icons.more_vert,
-              color: Color(0xFF1F2937),
-            ),
+            icon: const Icon(Icons.more_vert, color: Color(0xFF1F2937)),
             onSelected: (value) async {
               if (value == 'toggle_active') {
                 final fs = ref.read(firestoreServiceProvider);
-                final updated = client.copyWith(
-                  isActive: !client.isActive,
-                );
+                final updated = client.copyWith(isActive: !client.isActive);
                 await fs.updateClient(updated);
 
                 if (context.mounted) {
@@ -87,9 +76,7 @@ class ClientDetailScreen extends ConsumerWidget {
                       size: 20,
                     ),
                     const SizedBox(width: 10),
-                    Text(
-                      client.isActive ? l10n.archive : l10n.activate,
-                    ),
+                    Text(client.isActive ? l10n.archive : l10n.activate),
                   ],
                 ),
               ),
@@ -100,17 +87,12 @@ class ClientDetailScreen extends ConsumerWidget {
       ),
       body: paymentsAsync.when(
         loading: () => const Center(
-          child: CircularProgressIndicator(
-            color: Color(0xFF0F766E),
-          ),
+          child: CircularProgressIndicator(color: Color(0xFF0F766E)),
         ),
         error: (error, _) => Center(
           child: Padding(
             padding: const EdgeInsets.all(24),
-            child: Text(
-              '${l10n.error}: $error',
-              textAlign: TextAlign.center,
-            ),
+            child: Text('${l10n.error}: $error', textAlign: TextAlign.center),
           ),
         ),
         data: (payments) {
@@ -133,12 +115,7 @@ class ClientDetailScreen extends ConsumerWidget {
                 dateFmt: _dateFmt,
                 payments: payments,
                 onViewDetails: () {
-                  _showContractDetails(
-                    context,
-                    client,
-                    currency,
-                    l10n,
-                  );
+                  _showContractDetails(context, client, currency, l10n);
                 },
               ),
               const SizedBox(height: 24),
@@ -158,16 +135,21 @@ class ClientDetailScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 10),
               if (payments.isEmpty)
-                _EmptyPaymentsCard(
-                  message: l10n.noPayments,
-                ),
+                _EmptyPaymentsCard(message: l10n.noPayments),
               ...payments.map(
                 (payment) => _PaymentCard(
                   payment: payment,
                   currency: currency,
                   dateFmt: _dateFmt,
                   onQuittancePressed: payment.quittanceGiven
-                      ? null
+                      ? () async {
+                          final updated = payment.copyWith(
+                            quittanceGiven: false,
+                            quittanceDate: DateTime.now(),
+                          );
+                          final fs = ref.read(firestoreServiceProvider);
+                          await fs.updatePayment(updated);
+                        }
                       : () async {
                           final updated = payment.copyWith(
                             quittanceGiven: true,
@@ -187,25 +169,15 @@ class ClientDetailScreen extends ConsumerWidget {
         foregroundColor: const Color(0xFF064E46),
         elevation: 8,
         extendedPadding: const EdgeInsets.symmetric(horizontal: 24),
-        icon: const Icon(
-          Icons.add_rounded,
-          size: 28,
-        ),
+        icon: const Icon(Icons.add_rounded, size: 28),
         label: Text(
           l10n.addPayment,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (_) => AddPaymentScreen(
-                client: client,
-              ),
-            ),
+            MaterialPageRoute(builder: (_) => AddPaymentScreen(client: client)),
           );
         },
       ),
@@ -226,9 +198,7 @@ class ClientDetailScreen extends ConsumerWidget {
         return Container(
           decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(28),
-            ),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
           ),
           padding: const EdgeInsets.fromLTRB(24, 12, 24, 32),
           child: SafeArea(
@@ -405,7 +375,9 @@ class _ClientHeaderCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             decoration: BoxDecoration(
-              color: isPaymentOverdue ? const Color(0xFFFFF1F2) : const Color(0xFFF1FAF8),
+              color: isPaymentOverdue
+                  ? const Color(0xFFFFF1F2)
+                  : const Color(0xFFF1FAF8),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -414,12 +386,18 @@ class _ClientHeaderCard extends StatelessWidget {
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: isPaymentOverdue ? const Color(0xFFFDE2E4) : const Color(0xFFE0F5F0),
+                    color: isPaymentOverdue
+                        ? const Color(0xFFFDE2E4)
+                        : const Color(0xFFE0F5F0),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    isPaymentOverdue ? Icons.warning_amber_rounded : Icons.event_available_rounded,
-                    color: isPaymentOverdue ? const Color(0xFFDC4B4B) : const Color(0xFF0F766E),
+                    isPaymentOverdue
+                        ? Icons.warning_amber_rounded
+                        : Icons.event_available_rounded,
+                    color: isPaymentOverdue
+                        ? const Color(0xFFDC4B4B)
+                        : const Color(0xFF0F766E),
                     size: 23,
                   ),
                 ),
@@ -432,7 +410,9 @@ class _ClientHeaderCard extends StatelessWidget {
                         l10n.nextPaymentDue,
                         style: TextStyle(
                           fontSize: 14,
-                          color: isPaymentOverdue ? const Color(0xFFB45353) : const Color(0xFF4B5563),
+                          color: isPaymentOverdue
+                              ? const Color(0xFFB45353)
+                              : const Color(0xFF4B5563),
                         ),
                       ),
                       const SizedBox(height: 3),
@@ -478,12 +458,17 @@ class _ClientHeaderCard extends StatelessWidget {
   }
 
   String _getInitials(String name) {
-    final parts = name.trim().split(RegExp(r'\s+')).where((part) => part.isNotEmpty).toList();
+    final parts = name
+        .trim()
+        .split(RegExp(r'\s+'))
+        .where((part) => part.isNotEmpty)
+        .toList();
     if (parts.isEmpty) return '?';
     if (parts.length == 1) {
       return parts.first.substring(0, 1).toUpperCase();
     }
-    return '${parts.first.substring(0, 1)}${parts.last.substring(0, 1)}'.toUpperCase();
+    return '${parts.first.substring(0, 1)}${parts.last.substring(0, 1)}'
+        .toUpperCase();
   }
 }
 
@@ -491,10 +476,7 @@ class _StatusBadge extends StatelessWidget {
   final bool isOverdue;
   final bool isActive;
 
-  const _StatusBadge({
-    required this.isOverdue,
-    required this.isActive,
-  });
+  const _StatusBadge({required this.isOverdue, required this.isActive});
 
   @override
   Widget build(BuildContext context) {
@@ -541,11 +523,7 @@ class _StatusBadge extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            icon,
-            size: 16,
-            color: foreground,
-          ),
+          Icon(icon, size: 16, color: foreground),
           const SizedBox(width: 6),
           Text(
             text,
@@ -582,7 +560,8 @@ class _ContractSummaryCard extends StatelessWidget {
     DateTime? contractStart;
 
     if (payments.isNotEmpty) {
-      final sorted = [...payments]..sort((a, b) => a.periodStart.compareTo(b.periodStart));
+      final sorted = [...payments]
+        ..sort((a, b) => a.periodStart.compareTo(b.periodStart));
       contractStart = sorted.first.periodStart;
     }
 
@@ -631,11 +610,7 @@ class _ContractSummaryCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 6),
-              Container(
-                width: 1,
-                height: 62,
-                color: const Color(0xFFE5E7EB),
-              ),
+              Container(width: 1, height: 62, color: const Color(0xFFE5E7EB)),
               const SizedBox(width: 10),
               Expanded(
                 child: _SummaryItem(
@@ -655,21 +630,21 @@ class _ContractSummaryCard extends StatelessWidget {
                 child: _SummaryItem(
                   icon: Icons.phone_outlined,
                   label: l10n.phone,
-                  value: client.phone != null && client.phone!.trim().isNotEmpty ? client.phone! : '—',
+                  value: client.phone != null && client.phone!.trim().isNotEmpty
+                      ? client.phone!
+                      : '—',
                 ),
               ),
               const SizedBox(width: 6),
-              Container(
-                width: 1,
-                height: 62,
-                color: const Color(0xFFE5E7EB),
-              ),
+              Container(width: 1, height: 62, color: const Color(0xFFE5E7EB)),
               const SizedBox(width: 10),
               Expanded(
                 child: _SummaryItem(
                   icon: Icons.event_outlined,
                   label: l10n.contractStart,
-                  value: contractStart != null ? dateFmt.format(contractStart) : '—',
+                  value: contractStart != null
+                      ? dateFmt.format(contractStart)
+                      : '—',
                 ),
               ),
             ],
@@ -702,11 +677,7 @@ class _SummaryItem extends StatelessWidget {
             color: Color(0xFFEAF7F4),
             shape: BoxShape.circle,
           ),
-          child: Icon(
-            icon,
-            color: const Color(0xFF0F766E),
-            size: 20,
-          ),
+          child: Icon(icon, color: const Color(0xFF0F766E), size: 20),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -717,10 +688,7 @@ class _SummaryItem extends StatelessWidget {
                 label,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF6B7280),
-                ),
+                style: const TextStyle(fontSize: 12, color: Color(0xFF6B7280)),
               ),
               const SizedBox(height: 3),
               Text(
@@ -777,88 +745,118 @@ class _PaymentCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         child: IntrinsicHeight(
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 width: 6,
-                color: payment.quittanceGiven ? const Color(0xFF269B63) : const Color(0xFFE0932A),
+                color: payment.quittanceGiven
+                    ? const Color(0xFF269B63)
+                    : const Color(0xFFE0932A),
               ),
+              
+              const SizedBox(width: 12),
+              
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: isRemote
+                        ? const Color(0xFFFFF3DF)
+                        : const Color(0xFFEAF7F4),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    payment.method.icon,
+                    color: isRemote
+                        ? const Color(0xFFE0932A)
+                        : const Color(0xFF0F766E),
+                    size: 18,
+                  ),
+                ),
+              ),
+              
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                  child: Row(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 14,
+                  ),
+                  child: Column(
                     children: [
-                      Container(
-                        width: 48,
-                        height: 48,
-                        decoration: BoxDecoration(
-                          color: isRemote ? const Color(0xFFFFF3DF) : const Color(0xFFEAF7F4),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Icon(
-                          payment.method.icon,
-                          color: isRemote ? const Color(0xFFE0932A) : const Color(0xFF0F766E),
-                          size: 22,
-                        ),
-                      ),
-                      const SizedBox(width: 14),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
+                      Row(
+                        children: [
+                          // const SizedBox(width: 14),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${payment.amountPaid.toStringAsFixed(0)} $currency',
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xFF1F2937),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 2,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFFF3F4F6),
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      child: Text(
+                                        payment.method.localizedLabel(context),
+                                        style: const TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFF4B5563),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 6),
                                 Text(
-                                  '${payment.amountPaid.toStringAsFixed(0)} $currency',
+                                  l10n.paymentDateWithLabel(
+                                    dateFmt.format(payment.paymentDate),
+                                  ),
                                   style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xFF1F2937),
+                                    fontSize: 13,
+                                    color: Color(0xFF6B7280),
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                const SizedBox(width: 8),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFFF3F4F6),
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  child: Text(
-                                    payment.method.localizedLabel(context),
-                                    style: const TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0xFF4B5563),
-                                    ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  '${dateFmt.format(payment.periodStart)} → ${dateFmt.format(payment.periodEnd)}',
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF9CA3AF),
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 6),
-                            Text(
-                              l10n.paymentDateWithLabel(dateFmt.format(payment.paymentDate)),
-                              style: const TextStyle(
-                                fontSize: 13,
-                                color: Color(0xFF6B7280),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              '${dateFmt.format(payment.periodStart)} → ${dateFmt.format(payment.periodEnd)}',
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: Color(0xFF9CA3AF),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                          // const SizedBox(width: 8),
+                        ],
                       ),
-                      const SizedBox(width: 8),
-                      _ReceiptBadge(
-                        given: payment.quittanceGiven,
-                        onPressed: onQuittancePressed,
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: _ReceiptBadge(
+                            given: payment.quittanceGiven,
+                            onPressed: onQuittancePressed,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -876,17 +874,18 @@ class _ReceiptBadge extends StatelessWidget {
   final bool given;
   final VoidCallback? onPressed;
 
-  const _ReceiptBadge({
-    required this.given,
-    required this.onPressed,
-  });
+  const _ReceiptBadge({required this.given, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    final background = given ? const Color(0xFFEAF7EF) : const Color(0xFFFFF2DE);
-    final foreground = given ? const Color(0xFF269B63) : const Color(0xFFE0932A);
+    final background = given
+        ? const Color(0xFFEAF7EF)
+        : const Color(0xFFFFF2DE);
+    final foreground = given
+        ? const Color(0xFF269B63)
+        : const Color(0xFFE0932A);
     final icon = given ? Icons.check_circle_rounded : Icons.receipt_outlined;
     final text = given ? l10n.receiptIssued : l10n.quittancePending;
 
@@ -895,19 +894,12 @@ class _ReceiptBadge extends StatelessWidget {
       decoration: BoxDecoration(
         color: background,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: foreground.withValues(alpha: 0.3),
-          width: 1,
-        ),
+        border: Border.all(color: foreground.withValues(alpha: 0.3), width: 1),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            icon,
-            color: foreground,
-            size: 15,
-          ),
+          Icon(icon, color: foreground, size: 15),
           const SizedBox(width: 6),
           Text(
             text,
@@ -939,9 +931,7 @@ class _ReceiptBadge extends StatelessWidget {
 class _EmptyPaymentsCard extends StatelessWidget {
   final String message;
 
-  const _EmptyPaymentsCard({
-    required this.message,
-  });
+  const _EmptyPaymentsCard({required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -970,10 +960,7 @@ class _EmptyPaymentsCard extends StatelessWidget {
           Text(
             message,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color(0xFF6B7280),
-              fontSize: 14,
-            ),
+            style: const TextStyle(color: Color(0xFF6B7280), fontSize: 14),
           ),
         ],
       ),
@@ -1006,11 +993,7 @@ class _DetailRow extends StatelessWidget {
               color: Color(0xFFEAF7F4),
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              icon,
-              color: const Color(0xFF0F766E),
-              size: 20,
-            ),
+            child: Icon(icon, color: const Color(0xFF0F766E), size: 20),
           ),
           const SizedBox(width: 13),
           Expanded(
