@@ -37,7 +37,8 @@ class ClientDetailScreen extends ConsumerWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          client.fullName,
+          // client.fullName,
+          'Client Details',
           style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w700,
@@ -318,6 +319,7 @@ class _ClientHeaderCard extends StatelessWidget {
       child: Column(
         children: [
           Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
                 width: 60,
@@ -339,7 +341,7 @@ class _ClientHeaderCard extends StatelessWidget {
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       client.fullName,
@@ -361,17 +363,18 @@ class _ClientHeaderCard extends StatelessWidget {
                         color: Color(0xFF6B7280),
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    _StatusBadge(
-                      isOverdue: isPaymentOverdue,
-                      isActive: client.isActive,
-                    ),
+                    // _StatusBadge(
+                    //   isOverdue: isPaymentOverdue,
+                    //   isActive: client.isActive,
+                    // ),
                   ],
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 8),
+          _StatusBadge(isOverdue: isPaymentOverdue, isActive: client.isActive),
+          const SizedBox(height: 6),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             decoration: BoxDecoration(
@@ -404,7 +407,7 @@ class _ClientHeaderCard extends StatelessWidget {
                 const SizedBox(width: 14),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         l10n.nextPaymentDue,
@@ -515,7 +518,7 @@ class _StatusBadge extends StatelessWidget {
     required Color foreground,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
       decoration: BoxDecoration(
         color: background,
         borderRadius: BorderRadius.circular(30),
@@ -753,9 +756,9 @@ class _PaymentCard extends StatelessWidget {
                     ? const Color(0xFF269B63)
                     : const Color(0xFFE0932A),
               ),
-              
+
               const SizedBox(width: 12),
-              
+
               Center(
                 child: Container(
                   width: 40,
@@ -775,7 +778,7 @@ class _PaymentCard extends StatelessWidget {
                   ),
                 ),
               ),
-              
+
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
