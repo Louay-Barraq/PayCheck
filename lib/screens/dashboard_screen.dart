@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
 import '../models/client.dart';
 import '../models/payment.dart';
+import '../providers/client_providers.dart';
 import '../providers/dashboard_providers.dart';
+import '../providers/payment_providers.dart';
 import '../providers/user_profile_provider.dart';
 import '../services/notification_service.dart';
 import '../theme/app_theme.dart';
@@ -115,6 +117,15 @@ class DashboardScreen extends ConsumerWidget {
     );
   }
 
+  Future<void> _handleRefresh(WidgetRef ref) async {
+    ref.invalidate(clientsProvider);
+    ref.invalidate(allPaymentsProvider);
+    await Future.wait([
+      ref.read(clientsProvider.future),
+      ref.read(allPaymentsProvider.future),
+    ]);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
@@ -141,7 +152,9 @@ class DashboardScreen extends ConsumerWidget {
         dueSoonBody: (clientName, dueMsg, amount, curr) =>
             l10n.notifDueSoonBody(clientName, dueMsg, amount, curr),
       );
-      ref.read(notificationServiceProvider).checkAndSendPaymentAlerts(
+      ref
+          .read(notificationServiceProvider)
+          .checkAndSendPaymentAlerts(
             overdueClients: data.overdueClients,
             dueSoonClients: data.dueSoon,
             nextDueDates: data.nextDueDates,
@@ -164,195 +177,214 @@ class DashboardScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: dashAsync.when(
-        data: (data) {
-          return ListView(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
-          children: [
-            // Hero card: main revenue KPI with trend
-            _RevenueHeroCard(data: data, currency: currency),
-            const SizedBox(height: 16),
-
-            // Secondary KPI grid
-            GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              mainAxisSpacing: 12,
-              crossAxisSpacing: 12,
-              childAspectRatio: 1.45,
+      body: RefreshIndicator(
+        onRefresh: () => _handleRefresh(ref),
+        child: dashAsync.when(
+          data: (data) {
+            return ListView(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
               children: [
-                _MiniKpi(
-                  icon: Icons.people_outline_rounded,
-                  label: l10n.activeClients,
-                  value: '${data.totalActiveClients}',
-                  color: AppColors.primary,
-                ),
-                _MiniKpi(
-                  icon: Icons.warning_amber_rounded,
-                  label: l10n.overdueClients,
-                  value: '${data.overdueCount}',
-                  sub: '${data.totalOverdueAmount.toStringAsFixed(0)} $currency',
-                  color: AppColors.danger,
-                ),
-                _MiniKpi(
-                  icon: Icons.receipt_long_rounded,
-                  label: l10n.pendingQuittances,
-                  value: '${data.pendingQuittanceCount}',
-                  color: AppColors.warning,
-                ),
-                _MiniKpi(
-                  icon: Icons.event_available_rounded,
-                  label: l10n.dueSoon,
-                  value: '${data.dueSoon.length}',
-                  color: AppColors.primary,
-                ),
-              ],
-            ),
+                // Hero card: main revenue KPI with trend
+                _RevenueHeroCard(data: data, currency: currency),
+                const SizedBox(height: 16),
 
-            const SizedBox(height: 24),
-            Text(
-              l10n.distributionByMethod,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 12),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: data.byMethod.entries.map((e) {
-                    final total = data.byMethod.values.fold(
-                      0.0,
-                      (a, b) => a + b,
-                    );
-                    final pct = total == 0 ? 0.0 : e.value / total;
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 6),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // Secondary KPI grid
+                GridView.count(
+                  crossAxisCount: 2,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 12,
+                  childAspectRatio: 1.45,
+                  children: [
+                    _MiniKpi(
+                      icon: Icons.people_outline_rounded,
+                      label: l10n.activeClients,
+                      value: '${data.totalActiveClients}',
+                      color: AppColors.primary,
+                    ),
+                    _MiniKpi(
+                      icon: Icons.warning_amber_rounded,
+                      label: l10n.overdueClients,
+                      value: '${data.overdueCount}',
+                      sub:
+                          '${data.totalOverdueAmount.toStringAsFixed(0)} $currency',
+                      color: AppColors.danger,
+                    ),
+                    _MiniKpi(
+                      icon: Icons.receipt_long_rounded,
+                      label: l10n.pendingQuittances,
+                      value: '${data.pendingQuittanceCount}',
+                      color: AppColors.warning,
+                    ),
+                    _MiniKpi(
+                      icon: Icons.event_available_rounded,
+                      label: l10n.dueSoon,
+                      value: '${data.dueSoon.length}',
+                      color: AppColors.primary,
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 24),
+                Text(
+                  l10n.distributionByMethod,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 12),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: data.byMethod.entries.map((e) {
+                        final total = data.byMethod.values.fold(
+                          0.0,
+                          (a, b) => a + b,
+                        );
+                        final pct = total == 0 ? 0.0 : e.value / total;
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Icon(
-                                    e.key.icon,
-                                    size: 16,
-                                    color: AppColors.primary,
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        e.key.icon,
+                                        size: 16,
+                                        color: AppColors.primary,
+                                      ),
+                                      const SizedBox(width: 6),
+                                      Text(
+                                        e.key.localizedLabel(context),
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium,
+                                      ),
+                                    ],
                                   ),
-                                  const SizedBox(width: 6),
                                   Text(
-                                    e.key.localizedLabel(context),
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium,
+                                    '${e.value.toStringAsFixed(0)} $currency',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                 ],
                               ),
-                              Text(
-                                '${e.value.toStringAsFixed(0)} $currency',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w700,
+                              const SizedBox(height: 6),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(6),
+                                child: LinearProgressIndicator(
+                                  value: pct,
+                                  minHeight: 6,
+                                  backgroundColor: AppColors.bg,
+                                  color: AppColors.primary,
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 6),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(6),
-                            child: LinearProgressIndicator(
-                              value: pct,
-                              minHeight: 6,
-                              backgroundColor: AppColors.bg,
-                              color: AppColors.primary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }).toList(),
+                        );
+                      }).toList(),
+                    ),
+                  ),
                 ),
-              ),
-            ),
 
-            if (data.overdueClients.isNotEmpty) ...[
-              const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    l10n.overdueTitle,
-                    style: Theme.of(context).textTheme.titleMedium,
+                if (data.overdueClients.isNotEmpty) ...[
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        l10n.overdueTitle,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      StatusBadge.overdue(l10n),
+                    ],
                   ),
-                  StatusBadge.overdue(l10n),
-                ],
-              ),
-              const SizedBox(height: 12),
-              ...data.overdueClients
-                  .take(5)
-                  .map(
-                    (c) => Card(
-                      margin: const EdgeInsets.only(bottom: 8),
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 4,
-                        ),
-                        leading: CircleAvatar(
-                          backgroundColor: AppColors.dangerLight,
-                          child: Text(
-                            c.fullName.isNotEmpty
-                                ? c.fullName[0].toUpperCase()
-                                : '?',
-                            style: const TextStyle(
-                              color: AppColors.danger,
-                              fontWeight: FontWeight.w700,
+                  const SizedBox(height: 12),
+                  ...data.overdueClients
+                      .take(5)
+                      .map(
+                        (c) => Card(
+                          margin: const EdgeInsets.only(bottom: 8),
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 4,
+                            ),
+                            leading: CircleAvatar(
+                              backgroundColor: AppColors.dangerLight,
+                              child: Text(
+                                c.fullName.isNotEmpty
+                                    ? c.fullName[0].toUpperCase()
+                                    : '?',
+                                style: const TextStyle(
+                                  color: AppColors.danger,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                            title: Text(
+                              c.fullName,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            subtitle: Text(
+                              '${l10n.contract}: ${c.contractNumber}',
+                            ),
+                            trailing: Text(
+                              '${c.amountDue.toStringAsFixed(0)} $currency',
+                              style: const TextStyle(
+                                color: AppColors.danger,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => ClientDetailScreen(client: c),
+                              ),
                             ),
                           ),
                         ),
-                        title: Text(
-                          c.fullName,
-                          style: const TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        subtitle: Text('${l10n.contract}: ${c.contractNumber}'),
-                        trailing: Text(
-                          '${c.amountDue.toStringAsFixed(0)} $currency',
-                          style: const TextStyle(
-                            color: AppColors.danger,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        onTap: () => Navigator.push(
+                      ),
+                  if (data.overdueClients.length > 5)
+                    Align(
+                      alignment: Alignment.center,
+                      child: TextButton.icon(
+                        onPressed: () => _showAllOverdueDialog(
                           context,
-                          MaterialPageRoute(
-                            builder: (_) => ClientDetailScreen(client: c),
-                          ),
+                          data.overdueClients,
+                          currency,
+                        ),
+                        icon: const Icon(Icons.arrow_forward_rounded, size: 16),
+                        label: Text(
+                          l10n.viewAllOverdue(data.overdueClients.length - 5),
                         ),
                       ),
                     ),
-                  ),
-              if (data.overdueClients.length > 5)
-                Align(
-                  alignment: Alignment.center,
-                  child: TextButton.icon(
-                    onPressed: () =>
-                        _showAllOverdueDialog(context, data.overdueClients, currency),
-                    icon: const Icon(Icons.arrow_forward_rounded, size: 16),
-                    label: Text(
-                      l10n.viewAllOverdue(data.overdueClients.length - 5),
-                    ),
-                  ),
-                ),
-            ],
-          ],
-        );
-      },
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) {
-          debugPrint('Error: $e');
-          return Center(child: Text('${AppLocalizations.of(context)!.error}: $e'));
-        },
+                ],
+              ],
+            );
+          },
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (e, _) {
+            debugPrint('Error: $e');
+            return SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.7,
+                alignment: Alignment.center,
+                child: Text('${AppLocalizations.of(context)!.error}: $e'),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -411,7 +443,9 @@ class _RevenueHeroCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      l10n.vsLastMonth(data.monthOverMonthPct.abs().toStringAsFixed(0)),
+                      l10n.vsLastMonth(
+                        data.monthOverMonthPct.abs().toStringAsFixed(0),
+                      ),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 12,
