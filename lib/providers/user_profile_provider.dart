@@ -134,9 +134,13 @@ class UserProfileNotifier extends AsyncNotifier<UserProfile> {
     } catch (_) {}
   }
 
-  static Future<bool> isOnboardingComplete(String uid) async {
+  static Future<bool> isOnboardingComplete([String? uid]) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('${_onboardingKey}_$uid') ?? false;
+    if (prefs.getBool(_onboardingKey) == true) return true;
+    if (uid != null) {
+      return prefs.getBool('${_onboardingKey}_$uid') ?? false;
+    }
+    return false;
   }
 }
 
@@ -147,10 +151,9 @@ class UserProfileNotifier extends AsyncNotifier<UserProfile> {
 final userProfileProvider =
     AsyncNotifierProvider<UserProfileNotifier, UserProfile>(UserProfileNotifier.new);
 
-/// Resolves to true once we've checked shared_prefs for the current user.
+/// Resolves to true once we've checked shared_prefs for onboarding completion.
 final onboardingCompleteProvider = FutureProvider<bool>((ref) async {
   final uid = FirebaseAuth.instance.currentUser?.uid;
-  if (uid == null) return false;
   return UserProfileNotifier.isOnboardingComplete(uid);
 });
 

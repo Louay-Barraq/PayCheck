@@ -11,35 +11,36 @@ class AuthGate extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(authStateProvider);
+    // 1. Check if the app-wide onboarding has been completed
+    final onboardingAsync = ref.watch(onboardingCompleteProvider);
 
-    return authState.when(
-      data: (user) {
-        // ValueKey forces Flutter to fully unmount/remount the subtree
-        // when the auth state flips — no stale navigator stack can survive.
-        if (user == null) {
-          return const LoginScreen(key: ValueKey('login'));
+    return onboardingAsync.when(
+      data: (complete) {
+        if (!complete) {
+          return const OnboardingScreen(key: ValueKey('onboarding'));
         }
 
-        // User is authenticated — check if onboarding is done
-        final onboardingAsync = ref.watch(onboardingCompleteProvider);
-        return onboardingAsync.when(
-          data: (complete) => complete
-              ? const MainShell(key: ValueKey('shell'))
-              : const OnboardingScreen(key: ValueKey('onboarding')),
+        // 2. Onboarding complete — check user auth state
+        final authState = ref.watch(authStateProvider);
+        return authState.when(
+          data: (user) {
+            if (user == null) {
+              return const LoginScreen(key: ValueKey('login'));
+            }
+            return const MainShell(key: ValueKey('shell'));
+          },
           loading: () => const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           ),
-          error: (_, _) =>
-              const MainShell(key: ValueKey('shell')), // fail open → show app
+          error: (e, _) => Scaffold(
+            body: Center(child: Text('Auth error: $e')),
+          ),
         );
       },
       loading: () => const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       ),
-      error: (e, _) => Scaffold(
-        body: Center(child: Text('Auth error: $e')),
-      ),
+      error: (_, _) => const LoginScreen(key: ValueKey('login')),
     );
   }
 }

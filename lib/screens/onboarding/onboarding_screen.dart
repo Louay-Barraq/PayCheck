@@ -1,13 +1,14 @@
 // screens/onboarding/onboarding_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/countries.dart';
 import '../../l10n/app_localizations.dart';
 import '../../providers/locale_provider.dart';
 import '../../providers/user_profile_provider.dart';
 import '../../services/notification_service.dart';
 import '../../theme/app_theme.dart';
-import '../main_shell.dart';
+import '../auth/login_screen.dart';
 
 // ─── Total page count ────────────────────────────────────────────
 const _kPageCount = 7;
@@ -55,20 +56,18 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Future<void> _finish() async {
-    final profile = UserProfile(
-      uid: '',
-      profession: _profession ?? '',
-      ageRange: _ageRange ?? '',
-      countryCode: _country.code,
-      countryName: _country.name,
-      countryFlag: _country.flag,
-      currencyCode: _country.currencyCode,
-      currencySymbol: _country.currencySymbol,
-    );
-    await ref.read(userProfileProvider.notifier).completeOnboarding(profile);
+    // Save global onboarding flag so it doesn't show again
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('onboarding_complete', true);
+    } catch (_) {}
+
+    // Invalidate provider so AuthGate updates state
+    ref.invalidate(onboardingCompleteProvider);
+
     if (mounted) {
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => const MainShell()),
+        MaterialPageRoute(builder: (_) => const LoginScreen(key: ValueKey('login'))),
         (_) => false,
       );
     }
