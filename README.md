@@ -1,8 +1,13 @@
-# PayCheck
+<p align="center">
+  <img src="assets/icons/paycheck_v2_full_preview.png" alt="PayCheck" width="180"/>
+</p>
 
-**Contract, payment & receipt management for independent landlords and professionals.**
+<h1 align="center">PayCheck</h1>
 
-Built with Flutter + Firebase (Firestore, Auth).
+<p align="center">
+  <strong>Contract, payment &amp; receipt management for independent landlords and professionals.</strong><br/>
+  Built with Flutter + Firebase (Firestore, Auth).
+</p>
 
 ---
 

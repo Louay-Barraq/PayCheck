@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:paycheck/l10n/app_localizations.dart';
 import 'package:paycheck/screens/auth/auth_gate.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -11,7 +12,10 @@ import 'package:paycheck/providers/locale_provider.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // Keep the splash screen visible while we initialize.
+  final binding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: binding);
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   FirebaseFirestore.instance.settings = const Settings(
@@ -28,6 +32,9 @@ void main() async {
   await initializeDateFormatting('ar_TN', null);
   await initializeDateFormatting('es', null);
   await initializeDateFormatting('es_ES', null);
+
+  // All async init done — dismiss the splash.
+  FlutterNativeSplash.remove();
 
   runApp(const ProviderScope(child: PayCheckApp()));
 }
