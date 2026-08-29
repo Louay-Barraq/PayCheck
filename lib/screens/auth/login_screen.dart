@@ -64,7 +64,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         if (mounted) setState(() => _loading = false);
       }
     } on FirebaseAuthException catch (e) {
-      if (mounted) setState(() => _errorMessage = e.message ?? l10n.googleSignInFailed);
+      if (mounted)
+        setState(() => _errorMessage = e.message ?? l10n.googleSignInFailed);
     } catch (e) {
       if (mounted) setState(() => _errorMessage = e.toString());
     } finally {
@@ -91,13 +92,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 children: [
                   Text(
                     l10n.enterEmailToReset,
-                    style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                    style: const TextStyle(
+                      fontSize: 13,
+                      color: AppColors.textSecondary,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   if (resetError != null) ...[
                     Text(
                       resetError!,
-                      style: const TextStyle(color: AppColors.danger, fontSize: 12),
+                      style: const TextStyle(
+                        color: AppColors.danger,
+                        fontSize: 12,
+                      ),
                     ),
                     const SizedBox(height: 8),
                   ],
@@ -113,7 +120,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
               actions: [
                 TextButton(
-                  onPressed: sending ? null : () => Navigator.pop(dialogContext),
+                  onPressed: sending
+                      ? null
+                      : () => Navigator.pop(dialogContext),
                   child: Text(l10n.cancel),
                 ),
                 FilledButton(
@@ -122,7 +131,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       : () async {
                           final email = resetEmailCtrl.text.trim();
                           if (email.isEmpty || !email.contains('@')) {
-                            setDialogState(() => resetError = l10n.invalidEmail);
+                            setDialogState(
+                              () => resetError = l10n.invalidEmail,
+                            );
                             return;
                           }
                           setDialogState(() {
@@ -138,9 +149,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             if (mounted) {
                               navigator.pop();
                               messenger.showSnackBar(
-                                SnackBar(
-                                  content: Text(l10n.emailSentSuccess),
-                                ),
+                                SnackBar(content: Text(l10n.emailSentSuccess)),
                               );
                             }
                           } on FirebaseAuthException catch (e) {
@@ -159,7 +168,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ? const SizedBox(
                           width: 16,
                           height: 16,
-                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
                         )
                       : Text(l10n.send),
                 ),
@@ -186,10 +198,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Icon(
-                    Icons.receipt_long_rounded,
-                    size: 72,
-                    color: AppColors.primary,
+                  UnconstrainedBox(
+                    child: Container(
+                      height: 110,
+                      width: 110,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/icons/paycheck_v2_icon_preview.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 12),
                   Text(
@@ -225,45 +247,111 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     const SizedBox(height: 16),
                   ],
 
-                  TextFormField(
-                    controller: _emailCtrl,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      labelText: l10n.email,
-                      prefixIcon: const Icon(Icons.email_outlined),
-                    ),
-                    validator: (v) =>
-                        (v == null || !v.contains('@')) ? l10n.invalidEmail : null,
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    controller: _passwordCtrl,
-                    obscureText: _obscurePassword,
-                    decoration: InputDecoration(
-                      labelText: l10n.password,
-                      prefixIcon: const Icon(Icons.lock_outline),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _obscurePassword
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
+                  TapRegion(
+                    onTapOutside: (_) => FocusScope.of(context).unfocus(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.06),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        controller: _emailCtrl,
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                          labelText: l10n.email,
+                          prefixIcon: const Icon(Icons.email_outlined),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
+                          ),
+                          filled: true,
+                          fillColor: Colors.transparent,
                         ),
-                        onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                        validator: (v) {
+                          if (v == null || v.trim().isEmpty) {
+                            return l10n.invalidEmail;
+                          }
+                          // Strict RFC 5322 standard email regex check
+                          final emailRegex = RegExp(
+                            r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                          );
+                          if (!emailRegex.hasMatch(v.trim())) {
+                            return l10n.invalidEmail;
+                          }
+                          return null;
+                        },
                       ),
                     ),
-                    validator: (v) =>
-                        (v == null || v.length < 6) ? l10n.minPasswordLength : null,
+                  ),
+                  const SizedBox(height: 16),
+                  TapRegion(
+                    onTapOutside: (_) => FocusScope.of(context).unfocus(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.06),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        controller: _passwordCtrl,
+                        obscureText: _obscurePassword,
+                        decoration: InputDecoration(
+                          labelText: l10n.password,
+                          prefixIcon: const Icon(Icons.lock_outline),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                            ),
+                            onPressed: () => setState(
+                              () => _obscurePassword = !_obscurePassword,
+                            ),
+                          ),
+                          // Removes default outline border so Container handles borders & shadow cleanly
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
+                          ),
+                          filled: true,
+                          fillColor: Colors.transparent,
+                        ),
+                        validator: (v) => (v == null || v.length < 6)
+                            ? l10n.minPasswordLength
+                            : null,
+                      ),
+                    ),
                   ),
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: _showForgotPasswordDialog,
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 4,
+                        ),
                       ),
                       child: Text(
                         l10n.forgotPassword,
-                        style: const TextStyle(fontSize: 13, color: AppColors.primary),
+                        style: const TextStyle(
+                          fontSize: 13,
+                          color: AppColors.primary,
+                        ),
                       ),
                     ),
                   ),
@@ -324,9 +412,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         },
                         child: Text(
                           l10n.signUp,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
