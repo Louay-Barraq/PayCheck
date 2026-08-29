@@ -15,17 +15,23 @@ class AuthGate extends ConsumerWidget {
 
     return authState.when(
       data: (user) {
-        if (user == null) return const LoginScreen();
+        // ValueKey forces Flutter to fully unmount/remount the subtree
+        // when the auth state flips — no stale navigator stack can survive.
+        if (user == null) {
+          return const LoginScreen(key: ValueKey('login'));
+        }
 
         // User is authenticated — check if onboarding is done
         final onboardingAsync = ref.watch(onboardingCompleteProvider);
         return onboardingAsync.when(
-          data: (complete) =>
-              complete ? const MainShell() : const OnboardingScreen(),
+          data: (complete) => complete
+              ? const MainShell(key: ValueKey('shell'))
+              : const OnboardingScreen(key: ValueKey('onboarding')),
           loading: () => const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           ),
-          error: (_, _) => const MainShell(), // fail open → show app
+          error: (_, _) =>
+              const MainShell(key: ValueKey('shell')), // fail open → show app
         );
       },
       loading: () => const Scaffold(

@@ -95,10 +95,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
             FilledButton(
               onPressed: () async {
+                // Close the dialog first
                 Navigator.pop(dialogCtx);
 
                 final auth = ref.read(authServiceProvider);
                 await auth.signOut();
+
+                // Pop every route until we're back at AuthGate (the root).
+                // AuthGate's StreamProvider will emit null and rebuild to LoginScreen.
+                if (mounted) {
+                  Navigator.of(context, rootNavigator: true)
+                      .popUntil((route) => route.isFirst);
+                }
               },
               child: Text(l10n.logout),
             ),
