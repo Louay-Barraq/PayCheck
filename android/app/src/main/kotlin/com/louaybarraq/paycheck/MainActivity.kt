@@ -1,4 +1,4 @@
-package com.example.paycheck
+package com.louaybarraq.paycheck
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -643,11 +643,11 @@ class _ProfileCard extends StatelessWidget {
             ),
           ),
 
-          const Icon(
-            Icons.chevron_right_rounded,
-            color: AppColors.textSecondary,
-            size: 25,
-          ),
+          // const Icon(
+          //   Icons.chevron_right_rounded,
+          //   color: AppColors.textSecondary,
+          //   size: 25,
+          // ),
         ],
       ),
     );
