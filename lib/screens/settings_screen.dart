@@ -56,10 +56,22 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final uri = Uri(
       scheme: 'mailto',
       path: 'louaybarraq@gmail.com',
+      queryParameters: {'subject': 'PayCheck Support'},
     );
-  
+
     if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('No email app found. Contact: louaybarraq@gmail.com'),
+          action: SnackBarAction(
+            label: 'OK',
+            onPressed: () {},
+          ),
+        ),
+      );
     }
   }
 
