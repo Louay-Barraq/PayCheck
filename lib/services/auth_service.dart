@@ -5,6 +5,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn(
+    serverClientId: '331243059076-84839ge5j6rer45uvf3cs54joqr0mu04.apps.googleusercontent.com',
+    
     clientId: kIsWeb
         ? null
         : defaultTargetPlatform == TargetPlatform.iOS
@@ -39,18 +41,27 @@ class AuthService {
 
   // Google Sign In
   Future<UserCredential?> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-    if (googleUser == null) return null; // User canceled
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) return null; // User canceled
 
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
-    final OAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
 
-    return await _auth.signInWithCredential(credential);
+      return await _auth.signInWithCredential(credential);
+    } catch (e, stackTrace) {
+      debugPrint('====================================================');
+      debugPrint('GOOGLE SIGN-IN ERROR DETAILS:');
+      debugPrint('Error: $e');
+      debugPrint('StackTrace: $stackTrace');
+      debugPrint('====================================================');
+      rethrow;
+    }
   }
 
   // Password Reset
