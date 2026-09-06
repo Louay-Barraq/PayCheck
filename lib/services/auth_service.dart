@@ -6,12 +6,6 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     serverClientId: '331243059076-84839ge5j6rer45uvf3cs54joqr0mu04.apps.googleusercontent.com',
-    
-    clientId: kIsWeb
-        ? null
-        : defaultTargetPlatform == TargetPlatform.iOS
-            ? '331243059076-82nd0f8rseukpfbfrk23f8rpc2fsi3i2.apps.googleusercontent.com'
-            : null,
   );
 
   Stream<User?> get authStateChanges => _auth.authStateChanges();
