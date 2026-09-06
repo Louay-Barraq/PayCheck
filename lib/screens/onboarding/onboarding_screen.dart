@@ -8,7 +8,6 @@ import '../../providers/locale_provider.dart';
 import '../../providers/user_profile_provider.dart';
 import '../../services/notification_service.dart';
 import '../../theme/app_theme.dart';
-import '../auth/login_screen.dart';
 
 // ─── Total page count ────────────────────────────────────────────
 const _kPageCount = 7;
@@ -64,13 +63,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
     // Invalidate provider so AuthGate updates state
     ref.invalidate(onboardingCompleteProvider);
-
-    if (mounted) {
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => const LoginScreen(key: ValueKey('login'))),
-        (_) => false,
-      );
-    }
   }
 
   Future<void> _requestNotifications() async {

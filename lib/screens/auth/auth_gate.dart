@@ -11,36 +11,34 @@ class AuthGate extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 1. Check if the app-wide onboarding has been completed
-    final onboardingAsync = ref.watch(onboardingCompleteProvider);
+    final authState = ref.watch(authStateProvider);
 
-    return onboardingAsync.when(
-      data: (complete) {
-        if (!complete) {
-          return const OnboardingScreen(key: ValueKey('onboarding'));
+    return authState.when(
+      data: (user) {
+        if (user != null) {
+          return const MainShell(key: ValueKey('shell'));
         }
 
-        // 2. Onboarding complete — check user auth state
-        final authState = ref.watch(authStateProvider);
-        return authState.when(
-          data: (user) {
-            if (user == null) {
-              return const LoginScreen(key: ValueKey('login'));
+        final onboardingAsync = ref.watch(onboardingCompleteProvider);
+        return onboardingAsync.when(
+          data: (complete) {
+            if (!complete) {
+              return const OnboardingScreen(key: ValueKey('onboarding'));
             }
-            return const MainShell(key: ValueKey('shell'));
+            return const LoginScreen(key: ValueKey('login'));
           },
           loading: () => const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           ),
-          error: (e, _) => Scaffold(
-            body: Center(child: Text('Auth error: $e')),
-          ),
+          error: (_, _) => const LoginScreen(key: ValueKey('login')),
         );
       },
       loading: () => const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       ),
-      error: (_, _) => const LoginScreen(key: ValueKey('login')),
+      error: (e, _) => Scaffold(
+        body: Center(child: Text('Auth error: $e')),
+      ),
     );
   }
 }

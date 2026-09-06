@@ -64,8 +64,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         if (mounted) setState(() => _loading = false);
       }
     } on FirebaseAuthException catch (e) {
-      if (mounted)
+      if (mounted) {
         setState(() => _errorMessage = e.message ?? l10n.googleSignInFailed);
+      }
     } catch (e) {
       if (mounted) setState(() => _errorMessage = e.toString());
     } finally {
